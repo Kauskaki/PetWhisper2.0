@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PetWhisper" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/LightCreme</item> -->
+
+
+    </style>
+
+
+    <style name="RoundedImage">
+        <item name="cornerSize">50%</item>  <!-- Adjust for roundness -->
+    </style>
+
+
+    <style name="Theme.PetWhisper" parent="Base.Theme.PetWhisper" />
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="FloatingActionButtonStyle" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="android:backgroundTint">@color/DarkPurp</item>
+        <item name="cornerSize">60%</item>
+
+    </style>
+
+
+</resources>

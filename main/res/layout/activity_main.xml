@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/LightPurp"
+
+    tools:context=".MainActivity">
+
+    <!-- The top bar of the app -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/AppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="16dp"
+        android:background="@color/LightPurp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title=""
+        tools:layout_editor_absoluteX="0dp">
+
+        <!-- App Name Title -->
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:textStyle="bold|italic" />
+
+        <!-- Profile Icon -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profile_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:onClick="onImageViewClick"
+            android:src="@drawable/user_ic"
+            app:shapeAppearanceOverlay="@style/RoundedImage"
+            tools:ignore="OnClick" />
+    </androidx.appcompat.widget.Toolbar>
+    <!-- End of Top App Bar -->
+
+    <!-- Bottom Navigation bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="411dp"
+        android:layout_height="102dp"
+        android:background="@color/LightPurp"
+        android:fitsSystemWindows="true"
+        android:itemBackground="@color/LightPurp"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+    <!-- End of navigation bar -->
+
+
+    <!-- Main Frame Container | Where the fragments are placed -->
+    <FrameLayout
+        android:id="@+id/MainFrameContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AppBar"
+        app:layout_constraintVertical_bias="0.0">
+    </FrameLayout>
+    <!-- End of Main Frame Container -->
+
+    <!-- Pet App Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatPetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingBottom="30dp"
+        android:contentDescription="@null"
+        app:backgroundTint="@color/DarkPurp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="@+id/AppBar"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintVertical_bias="3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/plus_ic" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
