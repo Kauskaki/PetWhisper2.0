@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PetWhisper" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+
+
+    </style>
+
+
+    <style name="RoundedImage">
+        <item name="cornerSize">50%</item>  <!-- Adjust for roundness -->
+    </style>
+
+
+    <style name="Theme.PetWhisper" parent="Base.Theme.PetWhisper" />
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="FloatingActionButtonStyle" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="android:backgroundTint">@color/DarkPurp</item>
+        <item name="cornerSize">60%</item>
+
+    </style>
+
+
+</resources>
