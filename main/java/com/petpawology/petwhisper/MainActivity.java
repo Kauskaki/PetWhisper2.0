@@ -1,6 +1,8 @@
 package com.petpawology.petwhisper;
 import static android.app.PendingIntent.getActivity;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -32,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private MyData myData;
     private Intent intent;
 
+    private void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.MainFrameContainer, fragment).commit();
+    }
+
     ActivityMainBinding binding;
 
     @SuppressLint("NonConstantResourceId")
@@ -40,24 +46,21 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
 
         // Enable edge-to-edge display
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.LightPurp));
 
 
-        // Apply window insets for edge-to-edge display
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        //
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeListFragment());
+
+
+        //Initialize toolbar to change the app bar on the top
+        Toolbar toolbar = findViewById(R.id.AppBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -65,9 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                //Initialize toolbar to change the app bar on the top
-                Toolbar toolbar = findViewById(R.id.AppBar);
-                setSupportActionBar(toolbar);
+
                 //To change title
                 TextView toolbarTitle = findViewById(R.id.toolbar_title);
 
@@ -81,8 +82,9 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("NavigationDebug", "Home button clicked");
                     //Gets rid of the title that appears when a navigation tab is clicked
                     getSupportActionBar().setTitle("");
-                    toolbarTitle.setText("PetWhisper");
+                    toolbarTitle.setText(R.string.app_name);
                     //Display Home Pet List
+                    getSupportActionBar().setTitle("");
                     replaceFragment(new HomeListFragment());
                     return true;
 
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // Update Toolbar title
                     getSupportActionBar().setTitle("");
-                    toolbarTitle.setText("Search");
+                    toolbarTitle.setText(R.string.Search);
 
 
                     // Replace the current fragment with the SearchFragment
@@ -100,10 +102,9 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (item.getItemId() == R.id.nav_Friends) {
                     Log.d("NavigationDebug", "Friends button clicked");
-
                     // Update Toolbar title
                     getSupportActionBar().setTitle("");
-                    toolbarTitle.setText("Friends");
+                    toolbarTitle.setText(R.string.Friends);
 
                     //Transitioning to friend fragment
                     replaceFragment(new FriendFragment());
@@ -116,11 +117,24 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }
+
         });
-
     }
 
-    private void replaceFragment(Fragment fragment){
-        getSupportFragmentManager().beginTransaction().replace(R.id.MainFrameContainer, fragment).commit();
+
+
+    //Setting's button
+    public void onClickPfp(View view) {
+        Log.d("ClickDebug", "Clicked: " + view.getId());
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.Settings));
+        getSupportActionBar().setTitle("");
+        replaceFragment(new SettingsFragment());
     }
+
+    //Back Button
+    public void onClickBckButton(View view) {
+        Log.d("ClickDebug", "Back Button Clicked: " + view.getId());
+    }
+
 }
