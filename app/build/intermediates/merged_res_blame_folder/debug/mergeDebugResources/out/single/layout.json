@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.petpawology.petwhisper.app-mergeDebugResources-52:/layout/activity_main.xml",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-mergeDebugResources-52:/layout/fragment_home_list.xml",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/fragment_home_list.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-mergeDebugResources-52:/layout/fragment_friend.xml",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/fragment_friend.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-mergeDebugResources-52:/layout/fragment_search.xml",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/fragment_search.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-mergeDebugResources-52:/layout/fragment_pet_selection_info.xml",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/fragment_pet_selection_info.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-mergeDebugResources-52:/layout/activity_pet_selection.xml",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/activity_pet_selection.xml"
+    }
+]

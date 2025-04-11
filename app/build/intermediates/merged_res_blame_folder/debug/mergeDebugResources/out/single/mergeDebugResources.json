@@ -1,0 +1,86 @@
+[
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/mipmap-hdpi_petwhisper_tempic.png.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/mipmap-hdpi/petwhisper_tempic.png"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/layout_fragment_friend.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/fragment_friend.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/drawable_plus_ic.png.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/drawable/plus_ic.png"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/drawable_addfri_ic.png.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/drawable/addfri_ic.png"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/xml_root_preferences.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/xml/root_preferences.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/xml_backup_rules.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/xml_data_extraction_rules.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/menu_bottom_nav_menu.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/drawable_rounded_search_bg.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/drawable/rounded_search_bg.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/drawable_home_ic.png.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/drawable/home_ic.png"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/drawable_friends_ic.png.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/drawable/friends_ic.png"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/drawable_search_ic.png.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/drawable/search_ic.png"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/mipmap-hdpi_pet_logo.png.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/mipmap-hdpi/pet_logo.png"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/drawable_backbutton.png.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/drawable/backbutton.png"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/layout_fragment_search.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/fragment_search.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/layout_fragment_pet_selection_info.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/fragment_pet_selection_info.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/layout_activity_pet_selection.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/activity_pet_selection.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/layout_activity_main.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/layout_fragment_home_list.xml.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/layout/fragment_home_list.xml"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/drawable_user_ic.png.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/drawable/user_ic.png"
+    },
+    {
+        "merged": "com.petpawology.petwhisper.app-debug-53:/drawable_pet_frame.png.flat",
+        "source": "com.petpawology.petwhisper.app-main-55:/drawable/pet_frame.png"
+    }
+]
