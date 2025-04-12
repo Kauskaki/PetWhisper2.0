@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -43,12 +44,16 @@ dependencies {
     implementation(libs.legacy.support.v4)
     implementation(libs.recyclerview)
     implementation(libs.preference)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    //Added for Round Images
     implementation(libs.material.v190)
-    //Scafold
-    implementation(platform("androidx.compose:compose-bom:2025.02.00"))
+    implementation(platform(libs.compose.bom))
+    implementation(platform(libs.firebase.bom))
+    implementation (libs.firebase.auth.v2110)
+    implementation(libs.firebase.auth)
+    implementation (libs.firebase.firestore)
+    implementation(libs.firebase.analytics)
 
 }

@@ -27,10 +27,13 @@
             android:text="@null"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            app:srcCompat="@drawable/backbutton"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/exit"
             android:onClick="onClickBckButton"
             tools:layout_editor_absoluteX="9dp"
-            tools:layout_editor_absoluteY="1dp" />
+            tools:layout_editor_absoluteY="1dp"
+            android:visibility="gone"/>
 
 
         <!-- App Name Title -->
@@ -46,7 +49,7 @@
 
         <!-- Profile Icon -->
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profile_image"
+            android:id="@+id/SettingsIcon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="end"

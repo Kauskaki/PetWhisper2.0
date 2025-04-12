@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context=".RegisterAcc">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        android:text="@string/register"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <!-- Takes you to the login page -->
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/nameEnter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:hint="@string/name"
+        android:padding="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="44dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passwordEnt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:padding="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/emailEnter"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/emailEnter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameEnter" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/usernameEnt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/username"
+        android:padding="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/nameEnter"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="15dp" />
+
+    <!-- End of Login button -->
+
+    <!-- Create Account Button -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintBottom_toTopOf="@+id/createAccBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEnt">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="45dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/catwalking" />
+
+        <TextView
+            android:id="@+id/loginAlrExists"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_toEndOf="@id/imageView2"
+            android:gravity="center_vertical"
+            android:paddingTop="10sp"
+            android:text="@string/already_have_an_account_click_here_to_log_in"
+            android:textColor="@color/DarkPurp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/createAccBtn"
+        android:layout_width="193dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="@color/lavender"
+        android:text="@string/create_account"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Back Button | Should only exist to do back to the settings, or exit app -->
+    <ImageButton
+        android:id="@+id/bckbutton"
+        android:layout_width="45dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/todo"
+        android:scaleType="fitStart"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.002"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/exit" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- https://www.flaticon.com/free-icons/cancel exit icons created by Fajri rama - Flaticon-->
+    <!--"https://www.flaticon.com/free-icons/cat Cat icons created by Victoruler - Flaticon -->

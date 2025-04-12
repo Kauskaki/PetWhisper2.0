@@ -1,5 +1,6 @@
 package com.petpawology.petwhisper;
 import static android.app.PendingIntent.getActivity;
+import static android.service.controls.ControlsProviderService.TAG;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
@@ -24,8 +26,17 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.petpawology.petwhisper.databinding.ActivityMainBinding;
 
 import android.widget.Toast;
@@ -33,6 +44,12 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private MyData myData;
     private Intent intent;
+    private FirebaseAuth mAuth;
+
+    ImageButton backbutton;
+    ShapeableImageView settingsIcon;
+
+
 
     private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.MainFrameContainer, fragment).commit();
@@ -45,22 +62,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+
+        FirebaseApp.initializeApp(this);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
 
         // Enable edge-to-edge display
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.LightPurp));
 
 
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeListFragment());
+
+        //buttons
+        backbutton = findViewById(R.id.backButton);
+        settingsIcon = findViewById(R.id.SettingsIcon);
 
 
         //Initialize toolbar to change the app bar on the top
         Toolbar toolbar = findViewById(R.id.AppBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -106,13 +136,14 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle("");
                     toolbarTitle.setText(R.string.Friends);
 
+
                     //Transitioning to friend fragment
                     replaceFragment(new FriendFragment());
 
                     return true;
 
                 } else {
-                    //If something goes wrong
+                    //If something goes wrong with navigation
                     Log.e("NavigationDebug", "Unexpected menu item ID: " + item.getItemId());
                 }
                 return true;
@@ -125,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Setting's button
     public void onClickPfp(View view) {
-        Log.d("ClickDebug", "Clicked: " + view.getId());
+        backbutton.setVisibility(View.VISIBLE);
+        Log.d("Setting Icon", "Clicked: " + view.getId());
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.Settings));
         getSupportActionBar().setTitle("");
@@ -136,5 +168,22 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBckButton(View view) {
         Log.d("ClickDebug", "Back Button Clicked: " + view.getId());
     }
+
+    //Check User Login
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            Toast.makeText(this, "Welcome, " + user.getEmail(), Toast.LENGTH_SHORT).show();
+            // You can add logic here to navigate to a different activity or update UI elements
+        } else {
+            Toast.makeText(this, "User not signed in", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+
+
+
+
+
 
 }

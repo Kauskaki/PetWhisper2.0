@@ -1,6 +1,7 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="Account Settings">
 
         <EditTextPreference
             app:key="signature"
@@ -17,11 +18,44 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory
+        android:title="Alerts">
+        <SwitchPreferenceCompat
+            android:key="Allalerts"
+            android:title="All Notifications"
+            android:summaryOff="Notifications are Disabled"
+            android:summaryOn="Notifications are Enabled"
+            />
+        <Preference
+            android:id="@+id/mealNotif"
+            app:dependency="Allalerts"
+            android:title="Mealtime Notifications"
+            />
+
+        <Preference
+            android:id="@+id/medNotif"
+            app:dependency="Allalerts"
+            android:title="Medication Notifications"
+            />
+
+        <Preference
+            android:id="@+id/vacNotif"
+            app:dependency="Allalerts"
+            android:title="Vaccine Notifications"
+            />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="General Settings">
 
         <SwitchPreferenceCompat
+            android:id="@+id/Appearance"
             app:key="sync"
-            app:title="@string/sync_title" />
+            app:summaryOff="Light Mode"
+            app:summaryOn="Dark Mode"
+            app:title="Theme" />
+
 
         <SwitchPreferenceCompat
             app:dependency="sync"

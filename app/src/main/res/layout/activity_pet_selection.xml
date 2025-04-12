@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PetCreate">
+    android:layout_height="match_parent">
 
     <ListView
         android:layout_width="409dp"

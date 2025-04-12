@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="create_account">Create Account</string>
+    <string name="todo">TODO</string>
+    <string name="already_have_an_account_click_here_to_log_in">Already have an account? Click here to log in</string>
+    <string name="don_t_have_an_account_click_here_to_register">Don\'t have an account? Click here to register</string>
+</resources>
