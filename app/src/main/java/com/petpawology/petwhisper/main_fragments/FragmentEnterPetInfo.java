@@ -216,8 +216,8 @@ public class FragmentEnterPetInfo extends Fragment {
                 Log.d("DebugCheck", "Species Not Recognized");
 
                 BreedDropdown.setText("Enter Breed");
-                breeds = // Empty if species not recognized
-                edit_species_maybe.setEnabled(true);
+                //breeds = // Empty if species not recognized
+                //edit_species_maybe.setEnabled(true);
                 break;
         }
 
