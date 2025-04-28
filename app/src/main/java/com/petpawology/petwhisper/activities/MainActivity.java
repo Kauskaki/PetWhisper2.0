@@ -1,58 +1,74 @@
-package com.petpawology.petwhisper;
+package com.petpawology.petwhisper.activities;
 import static android.app.PendingIntent.getActivity;
-import static android.service.controls.ControlsProviderService.TAG;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.SearchView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.petpawology.petwhisper.main_fragments.FriendFragment;
+import com.petpawology.petwhisper.HomeListFragment;
+import com.petpawology.petwhisper.userData;
+import com.petpawology.petwhisper.PetAdapter;
+import com.petpawology.petwhisper.PetInfo;
+import com.petpawology.petwhisper.R;
+import com.petpawology.petwhisper.main_fragments.SearchFragment;
+import com.petpawology.petwhisper.main_fragments.SettingsFragment;
 import com.petpawology.petwhisper.databinding.ActivityMainBinding;
 
-import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private MyData myData;
+    private userData userData;
     private Intent intent;
     private FirebaseAuth mAuth;
 
     ImageButton backbutton;
     ShapeableImageView settingsIcon;
+    Button logout;
+    BottomNavigationView bottom_navigation;
+    private FloatingActionButton addPet;
+
+    Toolbar toolbar;
+
+    Fragment currentFragment;
+
+
+
 
 
 
     private void replaceFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.MainFrameContainer, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.MainFrameContainer, fragment).addToBackStack(null).commit();
     }
 
     ActivityMainBinding binding;
@@ -81,10 +97,16 @@ public class MainActivity extends AppCompatActivity {
         //buttons
         backbutton = findViewById(R.id.backButton);
         settingsIcon = findViewById(R.id.SettingsIcon);
+        addPet = findViewById(R.id.floatPetAddButton);
+
+
+
+        //Bottom Navigation
+        bottom_navigation = findViewById(R.id.bottom_navigation);
 
 
         //Initialize toolbar to change the app bar on the top
-        Toolbar toolbar = findViewById(R.id.AppBar);
+        toolbar = findViewById(R.id.AppBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
@@ -114,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle("");
                     toolbarTitle.setText(R.string.app_name);
                     //Display Home Pet List
-                    getSupportActionBar().setTitle("");
+                    backbutton.setVisibility(GONE);
                     replaceFragment(new HomeListFragment());
                     return true;
 
@@ -127,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     // Replace the current fragment with the SearchFragment
+                    backbutton.setVisibility(GONE);
                     replaceFragment(new SearchFragment());
                     return true;
 
@@ -138,8 +161,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                     //Transitioning to friend fragment
-                    replaceFragment(new FriendFragment());
+                    backbutton.setVisibility(GONE);
 
+                    replaceFragment(new FriendFragment());
                     return true;
 
                 } else {
@@ -150,13 +174,26 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        //When add pet button is clicked
+        addPet.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                showAddPetDialog();
+            }
+        });
+
     }
 
 
-
-    //Setting's button
+    //Setting's button --Needs work
     public void onClickPfp(View view) {
-        backbutton.setVisibility(View.VISIBLE);
+        //All buttons gone
+        backbutton.setVisibility(VISIBLE);
+        settingsIcon.setVisibility(GONE);
+        addPet.setVisibility(GONE);
+
+        //Update Toolbar title
         Log.d("Setting Icon", "Clicked: " + view.getId());
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.Settings));
@@ -164,16 +201,32 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new SettingsFragment());
     }
 
-    //Back Button
+    //Back Button In Progress
     public void onClickBckButton(View view) {
         Log.d("ClickDebug", "Back Button Clicked: " + view.getId());
+        backbutton.setVisibility(GONE); // Hide the button after clicking
+        //Get current Fragment
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.MainFrameContainer);
+        Fragment previousFragment = getSupportFragmentManager().findFragmentById(R.id.MainFrameContainer);
+
+        //Get previous Fragment
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            String previousFragmentTag = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 2).getName();
+            previousFragment = getSupportFragmentManager().findFragmentByTag(previousFragmentTag);
+        }
+        getSupportFragmentManager().popBackStack(); // Navigate back if applicable
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.app_name));
+
+
+
     }
 
     //Check User Login
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Toast.makeText(this, "Welcome, " + user.getEmail(), Toast.LENGTH_SHORT).show();
-            // You can add logic here to navigate to a different activity or update UI elements
+            Toast.makeText(this, "Currently Signed in: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(this, "User not signed in", Toast.LENGTH_SHORT).show();
 
@@ -181,9 +234,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //Add Pet Button
+    private void showAddPetDialog() {
+        backbutton.setVisibility(VISIBLE);
+        Dialog dialog = new Dialog(this, R.style.DialogStyle);
+        LayoutInflater inflater = getLayoutInflater();
+        View popupView = inflater.inflate(R.layout.fragment_pet_selection_info, null);
 
+        // Find Recycler View inside the popupView
+        LinearLayout layout = popupView.findViewById(R.id.linearPetselect);
+        RecyclerView recyclerView = popupView.findViewById(R.id.recycler_viewpopup);;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Current available pets
+        List<PetInfo> pets = new ArrayList<>();
+        pets.add(new PetInfo("Cat", R.drawable.cat_ic));
+        pets.add(new PetInfo("Dog", R.drawable.dog_ic));
+        pets.add(new PetInfo("Bird", R.drawable.birb_ic));
+        pets.add(new PetInfo("Rabbit", R.drawable.bunny_ic));
+        pets.add(new PetInfo("Not Listed?", R.drawable.unicat));
 
+        PetAdapter adapter = new PetAdapter(this, pets, getSupportFragmentManager(), dialog);
+        recyclerView.setAdapter(adapter);
 
+        dialog.setContentView(popupView); // Use the inflated view
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_pet_selection);
+        dialog.show();
+        Log.d("ClickDebug", "Pet Selection");
 
+    }
 
 }

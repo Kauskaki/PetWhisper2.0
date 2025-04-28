@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bird_breeds">
+        <item>Parrot</item>
+        <item>Canary</item>
+        <item>Finch</item>
+        <item>Abyssinian Lovebird</item>
+        <item>African Gray Parrot</item>
+        <item>Amazon Parrot</item>
+        <item>Australian King Parrot</item>
+        <item>Black-throated Sparrow</item>
+        <item>Border Canary</item>
+        <item>Bridled Titmouse</item>
+        <item>Brown Noddy</item>
+        <item>Budgerigars</item>
+        <item>Burrowing Owl</item>
+        <item>Caique</item>
+        <item>Chattering Lory</item>
+        <item>Curl-crested Aracari</item>
+        <item>Crimson Rosella</item>
+        <item>Emerald Toucanet</item>
+        <item>Fischer\'s Lovebird</item>
+        <item>Gambel\'s Quail</item>
+        <item>Golden Eagle</item>
+        <item>Gloster Canary</item>
+        <item>Goldie\'s Lorikeet</item>
+        <item>Keel-billed Toucan</item>
+        <item>Toucan</item>
+        <item>Pigeon</item>
+        <item>House Finch</item>
+        <item>Macaw</item>
+        <item>Lovebirds</item>
+        <item>Cockatoo</item>
+        <item>Columbidae</item>
+        <item>Parakeet</item>
+        <item>Budgie</item>
+        <item>Cuckoo</item>
+        <item>Not listed &#124; Unsure</item>
+    </string-array>
+
+
+</resources>

@@ -5,7 +5,7 @@
 
         <EditTextPreference
             app:key="signature"
-            app:title="@string/signature_title"
+            app:title="Account Profile "
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
@@ -57,12 +57,7 @@
             app:title="Theme" />
 
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+
 
     </PreferenceCategory>
 

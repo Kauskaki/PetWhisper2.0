@@ -18,4 +18,5 @@ public class HomeListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home_list, container, false);
     }
+
 }

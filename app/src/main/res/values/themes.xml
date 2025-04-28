@@ -25,6 +25,18 @@
         <item name="cornerSize">60%</item>
 
     </style>
+    <style name="DialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name= "android:windowMinWidthMajor"> 80%</item>
+        <item name= "android:windowMinWidthMinor"> 80%</item>
+
+
+    </style>
+
+    <style name="CustomDatePicker" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/azure</item>
+        <item name="colorAccent">@color/lavender</item>
+        <item name="android:textColorPrimary">@color/oceanBlue</item>
+    </style>
 
 
 </resources>

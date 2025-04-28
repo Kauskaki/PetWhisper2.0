@@ -55,5 +55,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation (libs.firebase.firestore)
     implementation(libs.firebase.analytics)
-
+    implementation(libs.cardview)
+    implementation(libs.google.material.v190)
+    implementation(libs.firebase.firestore.ktx)
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1098929981667",
+    "project_id": "petpawlogypetwhisper",
+    "storage_bucket": "petpawlogypetwhisper.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098929981667:android:4bbdd722ca91c429349dd6",
+        "android_client_info": {
+          "package_name": "com.petpawology.petwhisper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbmXVeVgumgbAJzqpx8IOsO0-IqEC-l8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

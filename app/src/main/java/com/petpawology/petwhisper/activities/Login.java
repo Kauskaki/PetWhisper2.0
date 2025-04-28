@@ -1,6 +1,5 @@
-package com.petpawology.petwhisper;
+package com.petpawology.petwhisper.activities;
 
-import static android.app.ProgressDialog.show;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
@@ -16,9 +15,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,25 +22,44 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.petpawology.petwhisper.R;
 
-public class RegisterAcc extends AppCompatActivity {
+public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
+
+    //Input fields
+    TextInputEditText editTextEmail, editTextPassword;
+
+
+    //buttons
+    Button loginButton;
+    ImageButton bckbutton;
+    TextView loginNoExists;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //Firebase
+        mAuth = FirebaseAuth.getInstance();
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser != null){
+            Toast.makeText(Login.this, "Welcome back!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Input fields
-        TextInputEditText editTextEmail, editTextPassword, editTextName, editTextUsername;
-
-        //buttons
-        Button buttonRegister;
-        ImageButton bckbutton;
-        TextView loginAlrExists;
-
-        // Enable edge-to-edge display
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_register_acc);
+        setContentView(R.layout.activity_login);
+
+        mAuth = FirebaseAuth.getInstance();
 
 
         /* ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -55,44 +70,42 @@ public class RegisterAcc extends AppCompatActivity {
 
          */
 
-        setContentView(R.layout.activity_register_acc);
         editTextEmail = findViewById(R.id.emailEnter);
         editTextPassword = findViewById(R.id.passwordEnt);
-        editTextName = findViewById(R.id.nameEnter);
-        editTextUsername = findViewById(R.id.usernameEnt);
-        buttonRegister = findViewById(R.id.createAccBtn);
-        bckbutton = findViewById(R.id.bckbutton);
-        loginAlrExists = findViewById(R.id.loginAlrExists);
 
-        //Button if Account Already Exists.
-        loginAlrExists.setOnClickListener(new View.OnClickListener() {
+        loginButton = findViewById(R.id.loginButton);
+        bckbutton = findViewById(R.id.bckbutton);
+        loginNoExists = findViewById(R.id.loginNoExists);
+
+        //Button if Account Doesn't Exists -- Must Register | Make an account.
+        loginNoExists.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Login.class);
+                Intent intent = new Intent(getApplicationContext(), RegisterAcc.class);
                 startActivity(intent);
                 finish();
             }
         });
 
 
-        //Registering User Once button is pressed
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
+        //Login
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
-                String email, password, name, username;
-                email = String.valueOf(editTextEmail);
-                password = String.valueOf(editTextPassword);
-                name = String.valueOf(editTextName);
-                username = String.valueOf(editTextUsername);
+                String email, name, username, password;
+                email = editTextEmail.getText().toString();
+                password = editTextPassword.getText().toString();
 
                 //Checking if the fields are empty
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(RegisterAcc.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(Login.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(RegisterAcc.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(Login.this, "Please enter your password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
 
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -102,22 +115,23 @@ public class RegisterAcc extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Toast.makeText(RegisterAcc.this, "Authentication success.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, "Authentication success.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
 
-                                    //updateUI(user); <- For later [maybe]
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(RegisterAcc.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
-                                    //updateUI(null); For later [maybe]
                                 }
                             }
                         });
-
-
-
             }
+
+
+
         });
     }
 }

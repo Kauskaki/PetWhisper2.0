@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="false"
     android:background="@color/white"
-    tools:context=".SearchFragment">
+    tools:context=".main_fragments.SearchFragment">
 
     <FrameLayout
         android:id="@+id/SearchFrag"

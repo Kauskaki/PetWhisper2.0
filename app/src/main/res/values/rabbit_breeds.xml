@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rabbit_breeds">
+    <item>Holland Lop</item>
+    <item>American Fuzzy Lop</item>
+    <item>Mini Lop</item>
+    <item>European Rabbit</item>
+    <item>Flemish Giant Rabbit</item>
+    <item>Rex Rabbit</item>
+    <item>Cottontail Rabbit</item>
+    <item>Pygmy Rabbit</item>
+    <item>Polish Rabbit</item>
+    <item>Netherland Dwarf Rabbit</item>
+    <item>Cashmere Lop</item>
+    <item>Checkered Giant Rabbit</item>
+    <item>Stripped Rabbit</item>
+    <item>Oryctolagus</item>
+    <item>Volcano Rabbit</item>
+    <item>Florida White Rabbit</item>
+    <item>Jersey Wooly</item>
+    <item>Tan Rabbit</item>
+    <item>American Rabbit</item>
+    <item>Satin Rabbit</item>
+    <item>Alaskan Rabbit</item>
+    <item>Deilenaar</item>
+    <item>Panon Rabbit</item>
+    <item>Poelangus</item>
+    <item>Romerolagus</item>
+    <item>Pentalagus</item>
+    <item>Bunolagus</item>
+    <item>Not Listed &#124; Unsure</item>
+</string-array>
+
+</resources>

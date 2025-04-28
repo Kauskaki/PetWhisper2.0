@@ -7,7 +7,7 @@
     android:background="@color/white"
     app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
     app:layout_constraintTop_toBottomOf="@id/search_bar"
-    tools:context=".FriendFragment">
+    tools:context=".main_fragments.FriendFragment">
 
     <FrameLayout
         android:id="@+id/FriendFrag"

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cat_breeds">
+        <item>Abyssinian</item>
+        <item>Aegean</item>
+        <item>American Bobtail</item>
+        <item>American Curl</item>
+        <item>American Shorthair</item>
+        <item>American Longhair</item>
+        <item>American Polydactyl</item>
+        <item>American Wirehair</item>
+        <item>Asian Semi-longhair</item>
+        <item>Australian Mist</item>
+        <item>Balinese</item>
+        <item>Bengal</item>
+        <item>Birman</item>
+        <item>Bombay</item>
+        <item>British Shorthair</item>
+        <item>British Longhair</item>
+        <item>Burmese</item>
+        <item>Burmilla</item>
+        <item>Chartreux</item>
+        <item>Cornish Rex</item>
+        <item>California Spangled Cat</item>
+        <item>Chauise</item>
+        <item>Cheetoh</item>
+        <item>Devon Rex</item>
+        <item>Donskoy</item>
+        <item>Dragon Li</item>
+        <item>Egyptian Mau</item>
+        <item>European shorthair</item>
+        <item>Exotic Shorthair</item>
+        <item>Exotic Longhair</item>
+        <item>German Rex</item>
+        <item>Havana Brown</item>
+        <item>Himalayan</item>
+        <item>Japanese Bobtail</item>
+        <item>Javanese</item>
+        <item>Korat</item>
+        <item>Kurilian BobTail</item>
+        <item>LaPerm</item>
+        <item>Maine Coon</item>
+        <item>Manx</item>
+        <item>Minuet (Napoleon)</item>
+        <item>Munchkin</item>
+        <item>Nebelung</item>
+        <item>Norwegian Forest Cat</item>
+        <item>Ocicat</item>
+        <item>Ojo Azules</item>
+        <item>Oregon Rex</item>
+        <item>Oriental Bicolor</item>
+        <item>Oriental Longhair</item>
+        <item>Oriental Shorthair</item>
+        <item>Persian</item>
+        <item>Peterbald</item>
+        <item>Pixiebob</item>
+        <item>Ragamuffin</item>
+        <item>Ragdoll</item>
+        <item>Russian Blue</item>
+        <item>Russian White</item>
+        <item>Russian Black</item>
+        <item>Russian Tabby</item>
+        <item>Samoyed</item>
+        <item>Savannah</item>
+        <item>Scottish Fold</item>
+        <item>Selkirk Rex</item>
+        <item>Singapura</item>
+        <item>Somali</item>
+        <item>Sphynx</item>
+        <item>Snowshoe</item>
+        <item>Sokoke</item>
+        <item>Tonkinese</item>
+        <item>Turkish Angora</item>
+        <item>Turkish Van</item>
+        <item>Turkish Vankedisi</item>
+        <item>Ukrainian Levkoy</item>
+        <item>York Chocolate</item>
+        <item>Ussuri</item>
+        <item>Toyger</item>
+        <item>Not listed &#124; Unsure</item>
+    </string-array>
+
+</resources>
