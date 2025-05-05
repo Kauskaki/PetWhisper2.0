@@ -11,6 +11,7 @@ public class MyData {
     }
 
     public MyData(Context applicationContext) {
+
     }
 
     public void setEmail(String usrEmail){
