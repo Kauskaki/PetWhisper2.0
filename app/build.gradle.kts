@@ -59,5 +59,5 @@ dependencies {
     implementation(libs.google.material.v190)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.android.image.cropper)
-    implementation(libs.gson);
+    implementation(libs.gson)
 }

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_friends_container">
+    android:id="@+id/fragment_friends_container"
+    android:background="@drawable/home_list_bg">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friendsRecyclerView"
         android:layout_width="match_parent"

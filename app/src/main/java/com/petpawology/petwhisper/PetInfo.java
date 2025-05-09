@@ -164,7 +164,7 @@ public class PetInfo {
 
             this.notes = notes;
         }
-        public String getName() {
+        public String getVacName() {
             return name;
         }
         public String getExpirationDate() {
@@ -202,13 +202,13 @@ public class PetInfo {
 
     public static class Medication {
         String MedName;
-        String Medtype;
+        int Medtype;
         String dosage;
         String Instruction;
 
         String ExpirationDate;
 
-        public Medication(String MedName, String Medtype, String dosage, String ExpirationDate, String Instruction) {
+        public Medication(String MedName, int Medtype, String dosage, String ExpirationDate, String Instruction) {
             this.MedName = MedName;
             this.Medtype = Medtype;
             this.dosage = dosage;
@@ -220,7 +220,7 @@ public class PetInfo {
         public String getMedName() {
             return MedName;
         }
-        public String getMedtype() {
+        public int getMedtype() {
             return Medtype;
         }
         public String getDosage() {
@@ -231,10 +231,6 @@ public class PetInfo {
         }
         public String getInstruction() {
             return Instruction;
-        }
-
-        public String getMedType(){
-            return Medtype;
         }
     }
 
