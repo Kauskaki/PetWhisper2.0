@@ -1,5 +1,5 @@
-package com.petpawology.petwhisper.friends;
-import com.petpawology.petwhisper.*;
+package com.petpawology.petwhisper;
+
 import java.util.List;
 
 public class Friend {
@@ -10,13 +10,11 @@ public class Friend {
         this.name = name;
         this.pets = pets;
     }
-
     public String getName() {
         return name;
     }
     public Integer getImageResId(){
         return 1515;
-
     }
     public List<Pet> getPets() {
         return pets;

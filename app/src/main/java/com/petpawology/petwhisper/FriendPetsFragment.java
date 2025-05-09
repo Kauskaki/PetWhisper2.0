@@ -1,4 +1,4 @@
-package com.petpawology.petwhisper.friends;
+package com.petpawology.petwhisper;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,12 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-
-import com.petpawology.petwhisper.FriendPetInfoFragment;
-import com.petpawology.petwhisper.Pet;
-import com.petpawology.petwhisper.PetAdapter;
-import com.petpawology.petwhisper.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,14 +49,7 @@ public class FriendPetsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.petRecyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new FriendPetAdapter(pets, pet -> {
-            FriendPetInfoFragment petInfoFragment = FriendPetInfoFragment.newInstance(pet);
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.MainFrameContainer, petInfoFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }));
+        recyclerView.setAdapter(new FriendPetAdapter(pets));
 
         return view;
     }

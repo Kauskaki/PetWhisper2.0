@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="80dp">
+
+            <!-- Pet Image -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView"
+                android:layout_width="154dp"
+                android:layout_height="154dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/azure"
+                android:backgroundTint="@color/dullPurp"
+                android:clickable="true"
+                android:contentDescription="@string/upload_photo"
+                android:focusable="true"
+                android:src="@drawable/unicat"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:shapeAppearance="@style/RoundedImage"
+                app:strokeColor="@color/oceanBlue" />
+
+            <!-- Info Container -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="40dp"
+                android:padding="15dp"
+                android:paddingBottom="30dp"
+                android:background="@drawable/constraint_softyellow_bg"
+                app:layout_constraintTop_toBottomOf="@+id/shapeableImageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <!-- Pet Name -->
+                <TextView
+                    android:id="@+id/TxtViewPetName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:text="Pet Name:"
+                    android:textSize="13sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/petNameView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fluffy"
+                    android:textColor="@color/oceanBlue"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/TxtViewPetName"
+                    app:layout_constraintStart_toEndOf="@+id/TxtViewPetName" />
+
+                <!-- Date of Birth -->
+                <TextView
+                    android:id="@+id/dateOfBirthTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:text="Date of Birth:"
+                    android:textSize="13sp"
+                    app:layout_constraintTop_toBottomOf="@+id/TxtViewPetName"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/birthDateView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jan 01, 2025"
+                    android:textColor="@color/oceanBlue"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/dateOfBirthTextView"
+                    app:layout_constraintStart_toEndOf="@+id/dateOfBirthTextView" />
+
+                <!-- Species -->
+                <TextView
+                    android:id="@+id/speciesTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:text="Species:"
+                    android:textSize="13sp"
+                    app:layout_constraintTop_toBottomOf="@+id/dateOfBirthTextView"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/speciesValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cat"
+                    android:textColor="@color/oceanBlue"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/speciesTextView"
+                    app:layout_constraintStart_toEndOf="@+id/speciesTextView" />
+
+                <!-- Breed -->
+                <TextView
+                    android:id="@+id/breedLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:text="Breed:"
+                    android:textSize="13sp"
+                    app:layout_constraintTop_toBottomOf="@+id/speciesTextView"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/breedValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Siamese"
+                    android:textColor="@color/oceanBlue"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/breedLabel"
+                    app:layout_constraintStart_toEndOf="@+id/breedLabel" />
+
+                <!-- Gender -->
+                <TextView
+                    android:id="@+id/genderLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:text="Gender:"
+                    android:textSize="13sp"
+                    app:layout_constraintTop_toBottomOf="@+id/breedLabel"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/genderValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:textColor="@color/oceanBlue"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/genderLabel"
+                    app:layout_constraintStart_toEndOf="@+id/genderLabel" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

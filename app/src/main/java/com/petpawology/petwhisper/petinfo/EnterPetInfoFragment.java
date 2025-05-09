@@ -151,7 +151,6 @@ public class EnterPetInfoFragment extends Fragment {
         AddPetAllergy = view.findViewById(R.id.AddPetAllergies);
         SavePetInfo = view.findViewById(R.id.SavePetInfo);
 
-        listViewMeds = view.findViewById(R.id.medList);
         listViewVaccine = view.findViewById(R.id.vaccineList);
         listViewAllergy = view.findViewById(R.id.allergyList);
 
@@ -458,6 +457,7 @@ public class EnterPetInfoFragment extends Fragment {
             editVaccineEffectiveDate.setOnClickListener(view1 -> {
                 Calendar today = Calendar.getInstance();
 
+                // Correct Builder Initialization
                 MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                         .setTitleText("Select Effective Date:")
                         .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
@@ -594,7 +594,7 @@ public class EnterPetInfoFragment extends Fragment {
             sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // Force UTC interpretation
             String formattedDate = sdf.format(calendar.getTime());
 
-            calendar.setTimeZone(getDefault()); // Convert to local device time
+            calendar.setTimeZone(TimeZone.getDefault()); // Convert to local device time
             formattedDate = sdf.format(calendar.getTime());
 
             if (bdayButton != null) {

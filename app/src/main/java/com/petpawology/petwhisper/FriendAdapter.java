@@ -1,4 +1,4 @@
-package com.petpawology.petwhisper.friends;
+package com.petpawology.petwhisper;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.petpawology.petwhisper.R;
-
 import java.util.List;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendViewHolder> {
@@ -30,7 +27,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
     @Override
     public FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.friend_list_item, parent, false);
+                .inflate(R.layout.friend_listik_item, parent, false);
         return new FriendViewHolder(view);
     }
 
@@ -56,8 +53,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
 
         public FriendViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.userFriendpfp);
-            nameTextView = itemView.findViewById(R.id.FriendName);
+            imageView = itemView.findViewById(R.id.friend_image);
+            nameTextView = itemView.findViewById(R.id.friend_name);
         }
     }
 }

@@ -95,7 +95,9 @@ public class Login extends AppCompatActivity {
                 String email, name, username, password;
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
-
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
                 //Checking if the fields are empty
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(Login.this, "Please enter your email", Toast.LENGTH_SHORT).show();
@@ -116,9 +118,7 @@ public class Login extends AppCompatActivity {
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(Login.this, "Authentication success.", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+
 
                                 } else {
                                     // If sign in fails, display a message to the user.
