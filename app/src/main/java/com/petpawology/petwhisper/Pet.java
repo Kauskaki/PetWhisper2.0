@@ -1,6 +1,8 @@
 package com.petpawology.petwhisper;
 
-public class Pet {
+import java.io.Serializable;
+
+public class Pet implements Serializable {
     private String name;
     public String imageRes;
 

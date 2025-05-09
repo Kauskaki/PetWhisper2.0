@@ -147,7 +147,6 @@ public class EnterPetInfoFragment extends Fragment {
         AddPetAllergy = view.findViewById(R.id.AddPetAllergies);
         SavePetInfo = view.findViewById(R.id.SavePetInfo);
 
-        listViewMeds = view.findViewById(R.id.medList);
         listViewVaccine = view.findViewById(R.id.vaccineList);
         listViewAllergy = view.findViewById(R.id.allergyList);
         if (listViewMeds == null) {
@@ -199,6 +198,7 @@ public class EnterPetInfoFragment extends Fragment {
         AddPetAllergy = view.findViewById(R.id.AddPetAllergies);
         SavePetInfo = view.findViewById(R.id.SavePetInfo);
 
+        listViewMeds = view.findViewById(R.id.medList);
 
 
         bdayButton.setOnClickListener(v -> {
@@ -370,7 +370,7 @@ public class EnterPetInfoFragment extends Fragment {
             editMedicationDosage.setText(selectedMed.getDosage());
             expirationDatePicker.setText(selectedMed.getExpirationDate());
             medicationNotes.setText(selectedMed.getInstruction());
-            medicationTypeSpinner.setSelection(tempMedList.get(selectedMed.get()));
+            //medicationTypeSpinner.setSelection(tempMedList.get(selectedMed.get()));
 
             // Show dialog
             dialogMeds.show();

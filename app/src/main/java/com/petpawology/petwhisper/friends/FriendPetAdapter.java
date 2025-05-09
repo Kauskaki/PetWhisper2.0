@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.R;
 
 import java.util.List;
@@ -16,9 +17,15 @@ import java.util.List;
 public class FriendPetAdapter extends RecyclerView.Adapter<FriendPetAdapter.PetViewHolder> {
 
     private List<Pet> pets;
+    private OnPetClickListener listener;
 
-    public FriendPetAdapter(List<Pet> pets) {
+    public interface OnPetClickListener {
+        void onPetClick(Pet pet);
+    }
+
+    public FriendPetAdapter(List<Pet> pets, OnPetClickListener listener) {
         this.pets = pets;
+        this.listener = listener;
     }
 
     @NonNull
@@ -34,9 +41,11 @@ public class FriendPetAdapter extends RecyclerView.Adapter<FriendPetAdapter.PetV
         holder.nameTextView.setText(pet.getName());
         holder.imageView.setImageResource(R.drawable.catwalking);
 
-        // Assuming pet.getImageResId() returns a drawable resource ID
-        //holder.imageView.setImageResource(pet.imageRes);
-        //holder.imageView.setImageResource(R.id.friend_image);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onPetClick(pet);
+            }
+        });
     }
 
     @Override
@@ -55,5 +64,6 @@ public class FriendPetAdapter extends RecyclerView.Adapter<FriendPetAdapter.PetV
         }
     }
 }
+
 
 

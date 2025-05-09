@@ -1,5 +1,5 @@
 package com.petpawology.petwhisper.friends;
-
+import com.petpawology.petwhisper.*;
 import java.util.List;
 
 public class Friend {
