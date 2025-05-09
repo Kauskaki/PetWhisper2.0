@@ -13,7 +13,7 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -55,5 +55,9 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation (libs.firebase.firestore)
     implementation(libs.firebase.analytics)
-
+    implementation(libs.cardview)
+    implementation(libs.google.material.v190)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.android.image.cropper)
+    implementation(libs.gson);
 }

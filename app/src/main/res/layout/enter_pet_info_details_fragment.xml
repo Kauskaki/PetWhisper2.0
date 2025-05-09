@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="80dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView"
+                android:layout_width="154dp"
+                android:layout_height="154dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/azure"
+                android:backgroundTint="@color/dullPurp"
+
+                android:clickable="true"
+                android:contentDescription="@string/upload_photo"
+                android:focusable="true"
+                android:src="@drawable/unicat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/RoundedImage"
+                app:strokeColor="@color/oceanBlue" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/constraint_softyellow_bg"
+                android:padding="15dp"
+                android:paddingBottom="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shapeableImageView">
+
+                <TextView
+                    android:id="@+id/TxtViewPetName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="19dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:gravity="center"
+                    android:text="Pet Name:"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toStartOf="@+id/editPetName"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editPetName"
+                    android:layout_width="200dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="5dp"
+                    android:autofillHints=""
+                    android:background="@drawable/edit_text_rounded"
+                    android:ems="10"
+                    android:hint="Enter Pet Name"
+                    android:inputType="text"
+                    android:textColor="@color/oceanBlue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/SelectBdayButton"
+                    android:layout_width="200dp"
+                    android:layout_height="47dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/edit_text_rounded"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:gravity="center"
+                    android:text="Jan 01, 2025"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editPetName" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:gravity="center_vertical"
+                    android:text="Breed:"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toStartOf="@+id/BreedDropdown"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="44dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:text="Gender:"
+                    app:layout_constraintEnd_toStartOf="@+id/gender_spinner"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                <EditText
+                    android:id="@+id/pet_species_type"
+                    android:layout_width="200dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/edit_text_rounded"
+                    android:ems="10"
+                    android:hint="Enter Species"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/SelectBdayButton" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/BreedDropdown"
+                    android:layout_width="200dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/edit_text_rounded"
+                    android:hint="Enter Breed"
+                    android:popupBackground="@drawable/edit_text_rounded"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pet_species_type" />
+
+                <Spinner
+                    android:id="@+id/gender_spinner"
+                    android:layout_width="200dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/edit_text_rounded"
+                    android:popupBackground="@drawable/edit_text_rounded"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/BreedDropdown" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:gravity="center"
+                    android:text="Species: "
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toStartOf="@+id/pet_species_type"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:gravity="center_vertical"
+                    android:text="Date of Birth:  "
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toStartOf="@+id/SelectBdayButton"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TxtViewPetName" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="292dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/constraint_pink_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.444"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlSymmetry">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/baloo_bhai"
+                        android:paddingEnd="10sp"
+                        android:text="Medication: "
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
+
+                    <ImageButton
+                        android:id="@+id/AddPetMeds"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/plus_pastel_ic"
+                        android:contentDescription="Add Meds"
+                        android:scaleType="fitCenter"
+                        android:clickable="true"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="215dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <ListView
+                        android:id="@+id/medList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="292dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/constraint_pink_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/baloo_bhai"
+                        android:paddingEnd="10sp"
+                        android:text="Allergies: "
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
+
+                    <ImageButton
+                        android:id="@+id/AddPetAllergies"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/plus_pastel_ic"
+                        android:scaleType="fitCenter"
+                        android:clickable="true"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="215dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <ListView
+                        android:id="@+id/allergyList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Save buttons-->
+            <LinearLayout
+                android:id="@+id/SavePetInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="58dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/button_bg"
+                android:clickable="true"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.529"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/save_ic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/baloo_bhai"
+                    android:text="Save"
+                    android:textSize="25sp"
+                    tools:layout_editor_absoluteX="171dp"
+                    tools:layout_editor_absoluteY="952dp" />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="292dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/constraint_pink_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout88"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/baloo_bhai"
+                        android:paddingEnd="10sp"
+                        android:text="Vaccines: "
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
+
+                    <ImageButton
+                        android:id="@+id/AddPetVaccine"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/plus_pastel_ic"
+                        android:scaleType="fitCenter"
+                        android:clickable="true"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="215dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout88"
+                    tools:layout_editor_absoluteX="17dp">
+
+                    <ListView
+                        android:id="@+id/vaccineList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -5,35 +5,34 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/LightPurp"
+    android:background="@drawable/bg_main"
 
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
-    <!-- The top bar of the app -->
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/AppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="16dp"
-        android:background="@color/LightPurp"
+        android:layout_marginTop="36dp"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="">
 
         <ImageButton
             android:id="@+id/backButton"
-            android:contentDescription="@null"
-            android:text="@null"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@null"
+            android:onClick="onClickBckButton"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/exit"
-            android:onClick="onClickBckButton"
             tools:layout_editor_absoluteX="9dp"
-            tools:layout_editor_absoluteY="1dp"
-            android:visibility="gone"/>
+            tools:layout_editor_absoluteY="1dp" />
 
 
         <!-- App Name Title -->
@@ -45,7 +44,8 @@
             android:text="@string/app_name"
             android:textColor="@android:color/black"
             android:textSize="25sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold|italic"
+            android:fontFamily="@font/alegreya_black_italic"/>
 
         <!-- Profile Icon -->
         <com.google.android.material.imageview.ShapeableImageView
@@ -54,42 +54,59 @@
             android:layout_height="48dp"
             android:layout_gravity="end"
             android:layout_marginEnd="10dp"
+            android:onClick="onClickPfp"
             android:src="@drawable/user_ic"
-            app:shapeAppearanceOverlay="@style/RoundedImage"
-            android:onClick="onClickPfp"/>
+            app:shapeAppearanceOverlay="@style/RoundedImage" />
 
     </androidx.appcompat.widget.Toolbar>
-    <!-- End of Top App Bar -->
 
-    <!-- Bottom Navigation bar -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="411dp"
-        android:layout_height="102dp"
-        android:background="@color/LightPurp"
-        android:fitsSystemWindows="true"
-        android:itemBackground="@color/LightPurp"
-        app:layout_anchorGravity="bottom|center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
     <!-- End of navigation bar -->
 
 
-    <!-- Main Frame Container | Where the fragments are placed -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_rounded2"
+        android:fitsSystemWindows="true"
+        android:itemBackground="@color/lavender"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
     <FrameLayout
         android:id="@+id/MainFrameContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        android:layout_width="380dp"
+        android:layout_height="681dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AppBar"
+        app:layout_constraintTop_toBottomOf="@id/AppBar"
         app:layout_constraintVertical_bias="0.0">
 
-
     </FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatPetAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="25dp"
+        android:clickable="true"
+        android:contentDescription="@null"
+        android:paddingBottom="30dp"
+        android:text=""
+        android:visibility="visible"
+        app:backgroundTint="@color/Pklavender"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/plus_ic" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

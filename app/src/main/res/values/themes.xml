@@ -10,7 +10,9 @@
 
 
     <style name="RoundedImage">
-        <item name="cornerSize">50%</item>  <!-- Adjust for roundness -->
+        <item name="cornerSize">50%</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="strokeColor">@color/black</item>
     </style>
 
 
@@ -22,9 +24,22 @@
 
     <style name="FloatingActionButtonStyle" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="android:backgroundTint">@color/DarkPurp</item>
+        <item name ="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/black</item>
         <item name="cornerSize">60%</item>
 
     </style>
+
+    <string name="Round_radius">
+        <item name="cornerSize">25%</item>
+    </string>
+    <style name="DialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name= "android:windowMinWidthMajor"> 80%</item>
+        <item name= "android:windowMinWidthMinor"> 80%</item>
+
+
+    </style>
+
 
 
 </resources>
