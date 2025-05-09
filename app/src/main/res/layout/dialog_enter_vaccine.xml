@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/dialogTitleV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/baloo_bhai"
+        android:text="Add Vaccine"
+
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/editVaccineName"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/rounded_corners_stroke_n_purp"
+        android:fontFamily="@font/baloo_bhai"
+        android:hint="Enter Vaccine Name"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitleV" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editVaccineNotes">
+
+        <TextView
+            android:id="@+id/buttonCancelVaccine"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/linearlayout_seafoam_bg"
+            android:fontFamily="@font/baloo_bhai"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Cancel"
+            android:textAlignment="center"
+            android:textColor="@color/dullPurp" />
+
+        <ImageView
+            android:id="@+id/trash_vaccine"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/trashpurp_ic"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/buttonSaveVaccine"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:background="@drawable/linearlayout_bg"
+            android:fontFamily="@font/baloo_bhai"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/save"
+            android:textAlignment="center"
+            android:textColor="@color/dullPurp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/constraintLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/linearlayout_seafoam_bg"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editVaccineName">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/baloo_bhai"
+            android:text="Effective Date:    "
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/editVaccineEffectiveDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/baloo_bhai"
+            android:text="01/01/2026"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editVaccineNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/round_corners_pastelyellow"
+        android:fontFamily="@font/baloo_bhai"
+        android:gravity="top"
+        android:hint="Notes . . . "
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:maxLines="10"
+        android:minLines="6"
+        android:paddingStart="12dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/linearlayout_bg"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/baloo_bhai"
+            android:text="Expiration Date: "
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/editVaccineExpirationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo_bhai"
+            android:text="01/01/2025"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

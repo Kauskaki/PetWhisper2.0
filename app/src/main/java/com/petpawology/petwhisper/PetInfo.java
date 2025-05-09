@@ -232,6 +232,10 @@ public class PetInfo {
         public String getInstruction() {
             return Instruction;
         }
+
+        public String getMedType(){
+            return Medtype;
+        }
     }
 
 
