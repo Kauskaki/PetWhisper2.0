@@ -1,4 +1,6 @@
 package com.petpawology.petwhisper.petinfo;
+import static java.util.TimeZone.getDefault;
+
 import android.content.Context;
 
 import java.util.Objects;
@@ -31,7 +33,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -102,7 +103,7 @@ public class EnterPetInfoFragment extends Fragment {
     String tempMedName;
     String tempDosage;
     String tempExpirationDate;
-    String tempType;
+    int tempType;
     String tempNotes;
 
     ArrayList<PetInfo> petInfoList = new ArrayList<>();
@@ -110,7 +111,10 @@ public class EnterPetInfoFragment extends Fragment {
     List<PetInfo.Medication> tempMedList = new ArrayList<>();
     List<PetInfo.Vaccine> tempVaccineList = new ArrayList<>();
     ArrayList<PetInfo.Allergy> tempAllergyList = new ArrayList<>();
+
+    //private adapters
     MedicationAdapter adapterMeds;
+    VaccineAdapter adapterVaccine;
 
 
     //Recycler Views
@@ -147,11 +151,9 @@ public class EnterPetInfoFragment extends Fragment {
         AddPetAllergy = view.findViewById(R.id.AddPetAllergies);
         SavePetInfo = view.findViewById(R.id.SavePetInfo);
 
+        listViewMeds = view.findViewById(R.id.medList);
         listViewVaccine = view.findViewById(R.id.vaccineList);
         listViewAllergy = view.findViewById(R.id.allergyList);
-        if (listViewMeds == null) {
-            Log.e("DEBUG", "listViewMeds is NULL");
-        }
 
 
 
@@ -174,9 +176,20 @@ public class EnterPetInfoFragment extends Fragment {
         spinner.setAdapter(adapter);
 
         tempMedList = new ArrayList<>();
-        tempMedList.add(new PetInfo.Medication("Test", "TestT", "Test", "Test", "Test"));
+        tempMedList.add(new PetInfo.Medication("Test", 2, "Test", "Test", "Test"));
         adapterMeds = new MedicationAdapter(requireContext(), tempMedList);
         listViewMeds.setAdapter(adapterMeds);
+        if (listViewMeds == null) {
+            Log.e("DEBUG", "listViewMeds is NULL");
+        }
+
+        //Vaccine List temp
+        tempVaccineList = new ArrayList<>();
+        tempVaccineList.add(new PetInfo.Vaccine("FVRCP", "06/31/2025", "05/31/2025", "Test"));
+        adapterVaccine = new VaccineAdapter(requireContext(), tempVaccineList);
+        listViewVaccine.setAdapter(adapterVaccine);
+
+
 
 
 
@@ -198,7 +211,6 @@ public class EnterPetInfoFragment extends Fragment {
         AddPetAllergy = view.findViewById(R.id.AddPetAllergies);
         SavePetInfo = view.findViewById(R.id.SavePetInfo);
 
-        listViewMeds = view.findViewById(R.id.medList);
 
 
         bdayButton.setOnClickListener(v -> {
@@ -285,7 +297,7 @@ public class EnterPetInfoFragment extends Fragment {
             Log.d("DebugCheck", "Adapter count: " + adapterMed.getCount());
 
             // Force Dropdown Appearance
-            medicationTypeSpinner.post(() -> medicationTypeSpinner.performClick());
+            medicationTypeSpinner.post(medicationTypeSpinner::performClick);
 
             // **Fix: Make Cancel Button Clickable**
             buttonCancel.setClickable(true);
@@ -325,7 +337,7 @@ public class EnterPetInfoFragment extends Fragment {
                 tempMedName = editMedicationName.getText().toString();
                 tempDosage = editMedicationDosage.getText().toString();
                 tempExpirationDate = expirationDatePicker.getText().toString();
-                tempType = medicationTypeSpinner.getSelectedItem().toString();
+                tempType = medicationTypeSpinner.getSelectedItemPosition();
                 tempNotes= MedicationNotes.getText().toString();
                 // Ensure no empty name
                 if (tempMedName.isEmpty()) {
@@ -346,35 +358,42 @@ public class EnterPetInfoFragment extends Fragment {
         });
 
         //Open Medicaiton Dialog using info from bundle
+        if(listViewMeds == null){
+            Log.e("DEBUG", "listViewMeds is NULL");
+        } else {
+            listViewMeds.setOnItemClickListener((parent, view1, position, id) -> {
+                PetInfo.Medication selectedMed = tempMedList.get(position);
 
-        listViewMeds.setOnItemClickListener((parent, view1, position, id) -> {
-            PetInfo.Medication selectedMed = tempMedList.get(position);
+                Dialog dialogMeds = new Dialog(requireContext(), R.style.DialogStyle);
+                Objects.requireNonNull(dialogMeds.getWindow()).setBackgroundDrawableResource(R.drawable.enter_pet_info_container_bg);
 
-            Dialog dialogMeds = new Dialog(requireContext(), R.style.DialogStyle);
-            Objects.requireNonNull(dialogMeds.getWindow()).setBackgroundDrawableResource(R.drawable.enter_pet_info_container_bg);
+                // Inflate the layout
+                LayoutInflater inflater3 = getLayoutInflater();
+                View popupView = inflater3.inflate(R.layout.dialog_enter_medication, null);
+                dialogMeds.setContentView(popupView);
 
-            // Inflate the layout
-            LayoutInflater inflater3 = getLayoutInflater();
-            View popupView = inflater3.inflate(R.layout.dialog_enter_medication, null);
-            dialogMeds.setContentView(popupView);
+                // Get UI elements
+                EditText editMedicationName = popupView.findViewById(R.id.editMedicationName);
+                EditText editMedicationDosage = popupView.findViewById(R.id.editMedicationDosage);
+                TextView expirationDatePicker = popupView.findViewById(R.id.expirationDatePicker_meds);
+                EditText medicationNotes = popupView.findViewById(R.id.editMedicationNotes);
+                Spinner medicationTypeSpinner = popupView.findViewById(R.id.medicineType_spinner);
 
-            // Get UI elements
-            EditText editMedicationName = popupView.findViewById(R.id.editMedicationName);
-            EditText editMedicationDosage = popupView.findViewById(R.id.editMedicationDosage);
-            TextView expirationDatePicker = popupView.findViewById(R.id.expirationDatePicker_meds);
-            EditText medicationNotes = popupView.findViewById(R.id.editMedicationNotes);
-            Spinner medicationTypeSpinner = popupView.findViewById(R.id.medicineType_spinner);
+                // Set previous values and disable editing
 
-            // Set previous values and disable editing
-            editMedicationName.setText(selectedMed.getMedName());
-            editMedicationDosage.setText(selectedMed.getDosage());
-            expirationDatePicker.setText(selectedMed.getExpirationDate());
-            medicationNotes.setText(selectedMed.getInstruction());
-            //medicationTypeSpinner.setSelection(tempMedList.get(selectedMed.get()));
+                int petMedType = selectedMed.getMedtype();
 
-            // Show dialog
-            dialogMeds.show();
-        });
+
+                editMedicationName.setText(selectedMed.getMedName());
+                editMedicationDosage.setText(selectedMed.getDosage());
+                expirationDatePicker.setText(selectedMed.getExpirationDate());
+                medicationNotes.setText(selectedMed.getInstruction());
+                medicationTypeSpinner.setSelection(petMedType);
+
+                // Show dialog
+                dialogMeds.show();
+            });
+        }
 
         //Open Pet Vaccine Dialog
         AddPetVaccines.setOnClickListener(v -> {
@@ -409,20 +428,24 @@ public class EnterPetInfoFragment extends Fragment {
             });
 
             editVaccineExpirationDate.setOnClickListener(view1 -> {
-                final Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                Calendar today = Calendar.getInstance();
 
-                // Correct Builder Initialization
                 MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
-                        .setTitleText("Vaccine Expiration Date")
+                        .setTitleText("Select Expiration Date")
                         .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                         .build();
 
-                // Listen for date selection
                 datePicker.addOnPositiveButtonClickListener(selection -> {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(selection);
+
+                    // Convert UTC to device local time
                     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+                    sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // Force UTC interpretation
+                    String formattedDate = sdf.format(calendar.getTime());
+
+                    calendar.setTimeZone(getDefault()); // Convert to local device time
+                    sdf.format(calendar.getTime());
                     String selectedDate = sdf.format(new Date(selection));
                     editVaccineExpirationDate.setText(selectedDate); // Display selected date
                     Log.d("DatePickerDebug", "Selected Expiration Date: " + selectedDate);
@@ -433,24 +456,26 @@ public class EnterPetInfoFragment extends Fragment {
             });
 
             editVaccineEffectiveDate.setOnClickListener(view1 -> {
-                final Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                Calendar today = Calendar.getInstance();
 
-                // Correct Builder Initialization
                 MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
-                        .setTitleText("Vaccine Effective Date")
+                        .setTitleText("Select Effective Date:")
                         .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                         .build();
 
-                // Listen for date selection
                 datePicker.addOnPositiveButtonClickListener(selection -> {
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-                    String selectedDate = sdf.format(new Date(selection));
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(selection);
 
-                    editVaccineEffectiveDate.setText(selectedDate); // Display selected date
-                    Log.d("DatePickerDebug", "Selected Effective Date: " + selectedDate);
+                    // Convert UTC to device local time
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+                    sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // Force UTC interpretation
+                    String formattedDate = sdf.format(calendar.getTime());
+
+                    calendar.setTimeZone(getDefault()); // Convert to local device time
+                    sdf.format(calendar.getTime());
+                    editVaccineEffectiveDate.setText(formattedDate); // Display selected date
+                    Log.d("DatePickerDebug", "Selected Effective Date: " + formattedDate);
                 });
 
                 // **Show the picker**
@@ -470,9 +495,8 @@ public class EnterPetInfoFragment extends Fragment {
                 }
                 //temp vaccine class
                 PetInfo.Vaccine  newVaccine = new PetInfo.Vaccine(tempVaccineName, tempVaccineEffectiveDate, tempVaccineExpirationDate, tempVaccineNotes);
-
-
-
+                tempVaccineList.add(newVaccine);
+                adapterVaccine.notifyDataSetChanged();
                 dialogVaccine.dismiss();
 
             });
@@ -512,10 +536,12 @@ public class EnterPetInfoFragment extends Fragment {
                 // Ensure no empty name
                 if (tempAllergyName.isEmpty()) {
                     tempAllergyName = "Unnamed Allergy";
-                } else{
                     PetInfo.Allergy newAllergy = new PetInfo.Allergy(tempAllergyName, tempAllergyNotes);
-
                 }
+
+                PetInfo.Allergy newAllergy = new PetInfo.Allergy(tempAllergyName, tempAllergyNotes);
+                tempAllergyList.add(newAllergy);
+
 
             });
 
@@ -568,7 +594,7 @@ public class EnterPetInfoFragment extends Fragment {
             sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // Force UTC interpretation
             String formattedDate = sdf.format(calendar.getTime());
 
-            calendar.setTimeZone(TimeZone.getDefault()); // Convert to local device time
+            calendar.setTimeZone(getDefault()); // Convert to local device time
             formattedDate = sdf.format(calendar.getTime());
 
             if (bdayButton != null) {
@@ -655,12 +681,12 @@ public class EnterPetInfoFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    public class MedicationAdapter extends ArrayAdapter<PetInfo.Medication> {
+    public static class MedicationAdapter extends ArrayAdapter<PetInfo.Medication> {
         private final Context context;
         private final List<PetInfo.Medication> medicationList;
 
         public MedicationAdapter(Context context, List<PetInfo.Medication> medicationList) {
-            super(context, R.layout.enter_pet_info_items_display, medicationList);
+            super(context, R.layout.enter_pet_info_items_display_meds, medicationList);
             this.context = context;
             this.medicationList = medicationList;
         }
@@ -669,10 +695,10 @@ public class EnterPetInfoFragment extends Fragment {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.enter_pet_info_items_display, parent, false);
+                convertView = LayoutInflater.from(context).inflate(R.layout.enter_pet_info_items_display_meds, parent, false);
             }
 
-            TextView medName = convertView.findViewById(R.id.DisplayMedName);
+            TextView medName = convertView.findViewById(R.id.DisplayVacName);
             TextView medDosage = convertView.findViewById(R.id.DisplayMedDosage);
 
             PetInfo.Medication medication = medicationList.get(position);
@@ -683,4 +709,33 @@ public class EnterPetInfoFragment extends Fragment {
         }
     }
 
+    public static class VaccineAdapter extends ArrayAdapter<PetInfo.Vaccine> {
+        private final Context context;
+        private final List<PetInfo.Vaccine> vaccineList;
+
+        public VaccineAdapter(Context context, List<PetInfo.Vaccine> vaccineList) {
+            super(context, R.layout.enter_pet_info_items_display_vaccine,vaccineList);
+            this.context = context;
+            this.vaccineList = vaccineList;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.enter_pet_info_items_display_vaccine, parent, false);
+            }
+
+            TextView vacName = convertView.findViewById(R.id.DisplayVacName);
+            TextView vacExpiration = convertView.findViewById(R.id.showExpirationDateVac);
+            TextView vacEffective = convertView.findViewById(R.id.showEffectiveDateVac);
+
+            PetInfo.Vaccine vaccine = vaccineList.get(position);
+            vacName.setText(vaccine.getVacName() + ":");
+            vacExpiration.setText(vaccine.getExpirationDate());
+            vacEffective.setText(vaccine.getEffectiveDate());
+
+            return convertView;
+        }
+    }
 }

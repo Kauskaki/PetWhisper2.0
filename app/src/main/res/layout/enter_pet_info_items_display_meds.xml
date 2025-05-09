@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/DisplayMedName"
+            android:id="@+id/DisplayVacName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -28,6 +28,6 @@
             android:fontFamily="@font/baloo_bhai"
             android:text="Dosage"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/DisplayMedName"
+            app:layout_constraintStart_toEndOf="@+id/DisplayVacName"
             app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
