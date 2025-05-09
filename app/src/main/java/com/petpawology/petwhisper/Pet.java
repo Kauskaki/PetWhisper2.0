@@ -12,4 +12,14 @@ public class Pet {
         return name;
     }
 
+    public String getBreed(){
+        return "breed";
+    }
+    public String getBirthday(){
+        return "birthday";
+    }
+    public String getImageRes(){
+        return"none";
+    }
+
 }

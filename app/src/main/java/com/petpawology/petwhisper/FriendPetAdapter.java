@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
+public class FriendPetAdapter extends RecyclerView.Adapter<FriendPetAdapter.PetViewHolder> {
 
     private List<Pet> pets;
 
-    public PetAdapter(List<Pet> pets) {
+    public FriendPetAdapter(List<Pet> pets) {
         this.pets = pets;
     }
 
