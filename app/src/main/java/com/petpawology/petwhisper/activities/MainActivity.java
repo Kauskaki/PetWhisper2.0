@@ -6,12 +6,14 @@ import static android.view.View.VISIBLE;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -23,6 +25,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.WindowCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,8 +39,10 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.petpawology.petwhisper.main_fragments.FriendFragment;
-import com.petpawology.petwhisper.HomeListFragment;
+import com.petpawology.petwhisper.FriendFragment;
+
+import com.petpawology.petwhisper.main_fragments.HomeListFragment;
+import com.petpawology.petwhisper.petinfo.FragmentEnterPetInfoContainer;
 import com.petpawology.petwhisper.userData;
 import com.petpawology.petwhisper.PetAdapter;
 import com.petpawology.petwhisper.PetInfo;
@@ -46,6 +53,7 @@ import com.petpawology.petwhisper.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private userData userData;
@@ -60,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
-    Fragment currentFragment;
 
 
 
@@ -101,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         //Bottom Navigation
         bottom_navigation = findViewById(R.id.bottom_navigation);
 
@@ -114,9 +122,11 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
 
+        replaceFragment(new HomeListFragment());
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+
+
+        bottom_navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -137,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
                     toolbarTitle.setText(R.string.app_name);
                     //Display Home Pet List
                     backbutton.setVisibility(GONE);
+                    settingsIcon.setVisibility(VISIBLE);
+                    addPet.setVisibility(VISIBLE);
                     replaceFragment(new HomeListFragment());
                     return true;
 
@@ -149,7 +161,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                     // Replace the current fragment with the SearchFragment
+                    addPet.setVisibility(VISIBLE);
                     backbutton.setVisibility(GONE);
+                    settingsIcon.setVisibility(VISIBLE);
                     replaceFragment(new SearchFragment());
                     return true;
 
@@ -162,6 +176,8 @@ public class MainActivity extends AppCompatActivity {
 
                     //Transitioning to friend fragment
                     backbutton.setVisibility(GONE);
+                    settingsIcon.setVisibility(VISIBLE);
+                    addPet.setVisibility(GONE);
 
                     replaceFragment(new FriendFragment());
                     return true;
@@ -213,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             String previousFragmentTag = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 2).getName();
             previousFragment = getSupportFragmentManager().findFragmentByTag(previousFragmentTag);
+            settingsIcon.setVisibility(VISIBLE);
         }
         getSupportFragmentManager().popBackStack(); // Navigate back if applicable
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
@@ -239,28 +256,29 @@ public class MainActivity extends AppCompatActivity {
         backbutton.setVisibility(VISIBLE);
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
         LayoutInflater inflater = getLayoutInflater();
-        View popupView = inflater.inflate(R.layout.fragment_pet_selection_info, null);
+        View popupView = inflater.inflate(R.layout.dialog_pet_selection_info, null);
 
         // Find Recycler View inside the popupView
         LinearLayout layout = popupView.findViewById(R.id.linearPetselect);
         RecyclerView recyclerView = popupView.findViewById(R.id.recycler_viewpopup);;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //Current available pets
-        List<PetInfo> pets = new ArrayList<>();
-        pets.add(new PetInfo("Cat", R.drawable.cat_ic));
-        pets.add(new PetInfo("Dog", R.drawable.dog_ic));
-        pets.add(new PetInfo("Bird", R.drawable.birb_ic));
-        pets.add(new PetInfo("Rabbit", R.drawable.bunny_ic));
-        pets.add(new PetInfo("Not Listed?", R.drawable.unicat));
+        List<PetInfo> defaultSpecies = new ArrayList<>();
+        defaultSpecies.add(new PetInfo("Cat", R.drawable.cat_ic));
+        defaultSpecies.add(new PetInfo("Dog", R.drawable.dog_ic));
+        defaultSpecies.add(new PetInfo("Bird", R.drawable.birb_ic));
+        defaultSpecies.add(new PetInfo("Rabbit", R.drawable.bunny_ic));
+        defaultSpecies.add(new PetInfo("Not Listed?", R.drawable.unicat));
 
-        PetAdapter adapter = new PetAdapter(this, pets, getSupportFragmentManager(), dialog);
+        PetAdapter adapter = new PetAdapter(this, defaultSpecies, getSupportFragmentManager(), dialog);
         recyclerView.setAdapter(adapter);
 
         dialog.setContentView(popupView); // Use the inflated view
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_pet_selection);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.dialog_pet_selection_bg);
         dialog.show();
         Log.d("ClickDebug", "Pet Selection");
 
     }
+
 
 }

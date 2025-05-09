@@ -12,11 +12,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.petpawology.petwhisper.main_fragments.FragmentEnterPetInfo;
+import com.petpawology.petwhisper.petinfo.FragmentEnterPetInfoContainer;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
     private Context context;
@@ -49,7 +48,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_list_species_linear_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_pet_selection_linear_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -62,20 +61,19 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
 
         //Make the item clickable
         holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(context, "Selected: " + pet.getSpeciesName(), Toast.LENGTH_SHORT).show();
+            Log.d("DebugCheck", "Pet species name before bundle: " + pet.getSpeciesName());
 
             // Create a bundle and put the selected species
             Bundle bundle = new Bundle();
             bundle.putString("selected_species", pet.getSpeciesName());
-            Log.d("DebugCheck", "Replacing fragment with selected species: " + pet.getSpeciesName());
 
-            // Create fragment and set arguments
-            FragmentEnterPetInfo fragment = new FragmentEnterPetInfo();
-            fragment.setArguments(bundle);
+            Log.d("DebugCheck", "Replacing fragment with selected species: " + bundle.getString("selected_species"));
 
-            // Perform fragment transaction
+            FragmentEnterPetInfoContainer fragmentContainer = new FragmentEnterPetInfoContainer();
+            fragmentContainer.setArguments(bundle);
+
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.MainFrameContainer, fragment);
+            transaction.replace(R.id.MainFrameContainer, fragmentContainer);
             transaction.addToBackStack(null);
             transaction.commit();
 
@@ -88,19 +86,6 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
     public int getItemCount() {
         return petList.size();
     }
-
-    public interface OnPetClickListener {
-        void onPetClick(PetInfo pet);
-    }
-
-    public String getSelectedSpecies() {
-        if(SelectedSpecies != null) {
-            String a = "None Selected";
-            return a;
-        }
-            return SelectedSpecies;
-    }
-
 
 
 }

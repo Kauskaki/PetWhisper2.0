@@ -9,4 +9,14 @@
     <color name="Pklavender">#d1b1cb</color>
     <color name="oceanBlue">#5785A6</color>
     <color name="violet">#6a5999</color>
+    <color name="lavenderBlue">#9FB3DF</color>
+    <color name="softBlue">#9EC6F3</color>
+    <color name="lightBlue">#BDDDE4</color>
+    <color name="softYellow">#FFF1D5</color>
+    <color name="babyPink">#F7CFD8</color>
+    <color name="pastelYellow">#F4F8D3</color>
+    <color name="seafoamGreen">#A6D6D6</color>
+    <color name="dullPurp">#8E7DBE</color>
+
+
 </resources>

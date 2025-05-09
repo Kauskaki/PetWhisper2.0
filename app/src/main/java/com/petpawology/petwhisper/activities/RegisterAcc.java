@@ -35,7 +35,7 @@ public class RegisterAcc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //Input fields
-        TextInputEditText editTextEmail, editTextPassword, editTextName, editTextUsername;
+        TextInputEditText editTextEmail, editTextPassword, editTextUsername;
 
         //buttons
         Button buttonRegister;
@@ -50,7 +50,6 @@ public class RegisterAcc extends AppCompatActivity {
         setContentView(R.layout.activity_register_acc);
         editTextEmail = findViewById(R.id.emailEnter);
         editTextPassword = findViewById(R.id.passwordEnt);
-        editTextName = findViewById(R.id.nameEnter);
         editTextUsername = findViewById(R.id.usernameEnt);
         buttonRegister = findViewById(R.id.createAccBtn);
         bckbutton = findViewById(R.id.bckbutton);
@@ -73,7 +72,6 @@ public class RegisterAcc extends AppCompatActivity {
                 String email, password, name, username;
                 email = String.valueOf(editTextEmail);
                 password = String.valueOf(editTextPassword);
-                name = String.valueOf(editTextName);
                 username = String.valueOf(editTextUsername);
 
                 //Checking if the fields are empty

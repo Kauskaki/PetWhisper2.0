@@ -8,4 +8,6 @@
     <string name="todo">TODO</string>
     <string name="already_have_an_account_click_here_to_log_in">Already have an account? Click here to log in</string>
     <string name="don_t_have_an_account_click_here_to_register">Don\'t have an account? Click here to register</string>
+    <string name="save">Save</string>
+    <string name="testpet">TestPet</string>
 </resources>

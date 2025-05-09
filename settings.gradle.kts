@@ -17,7 +17,9 @@ dependencyResolutionManagement {
     repositories {
         google()  // Ensure Google repository is included
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
+
 }
 rootProject.name = "PetWhisper"
 include(":app")

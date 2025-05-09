@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <corners android:radius="16dp"/>  <!-- Round corners -->
-    <solid android:color="#BDDDE4"/> <!-- Background -->
-    <stroke android:color="@color/black" android:width="2dp"/>
+    <solid android:color="#9FB3DF"/> <!-- Background -->
+    <stroke android:width="3dp" android:color="@color/black"/> <!-- Stroke -->
     <padding android:left="8dp" android:right="8dp"/> <!-- Padding inside EditText -->
 </shape>
