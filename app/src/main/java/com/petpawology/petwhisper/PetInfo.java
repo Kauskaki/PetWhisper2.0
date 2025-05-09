@@ -64,7 +64,7 @@ public class PetInfo {
     }
 
 
-    //Animal ArrayList Dialog Options
+    //Animal ArrayList Dialog Options | ONlY USED IN PET DIALOG | Holds ony an image and Species Type in a caradview
     public PetInfo(String speciesName, int  imageResId) {
         this.imageResId = imageResId;
         this.speciesName = speciesName;
@@ -176,6 +176,18 @@ public class PetInfo {
         public String getNotes() {
             return notes;
         }
+        public void setVacName(String name) {
+            this.name = name;
+        }
+        public void setVacExpirationDate(String Exdate) {
+            this.Expirationdate = Exdate;
+        }
+        public void setVacEffectiveDate(String EffectiveDate) {
+            this.EffectiveDate = EffectiveDate;
+        }
+        public void setVacNotes(String notes) {
+            this.notes = notes;
+        }
     }
 
     public static class Notification {
@@ -187,16 +199,27 @@ public class PetInfo {
     public static class Allergy {
         String name;
         String Notes;
+
         public Allergy(String name, String notes) {
             this.name = name;
             this.Notes = notes;
 
         }
-        public String getName() {
+
+        public String getAllergyName() {
             return name;
         }
-        public String getNotes() {
+
+        public String getAllergyNotes() {
             return Notes;
+        }
+
+        public void setAllergyName(String name) {
+            this.name = name;
+        }
+
+        public void setAllergyNotes(String notes) {
+            this.Notes = notes;
         }
     }
 
@@ -223,15 +246,33 @@ public class PetInfo {
         public int getMedtype() {
             return Medtype;
         }
-        public String getDosage() {
+        public String getMedDosage() {
             return dosage;
         }
-        public String getExpirationDate() {
+        public String getMedExpirationDate() {
             return ExpirationDate;
         }
-        public String getInstruction() {
+        public String getMedInstruction() {
             return Instruction;
         }
+
+        //Setters
+        public void setMedName(String MedName) {
+            this.MedName = MedName;
+        }
+        public void setMedtype(int Medtype) {
+            this.Medtype = Medtype;
+        }
+        public void setMedDosage(String dosage) {
+            this.dosage = dosage;
+            }
+        public void setMedExpirationDate(String ExpirationDate) {
+            this.ExpirationDate = ExpirationDate;
+        }
+        public void setMedInstruction(String Instruction) {
+            this.Instruction = Instruction;
+        }
+
     }
 
 

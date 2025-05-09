@@ -12,6 +12,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:fontFamily="@font/baloo_bhai"
             android:text="MedicationName:"
             android:textSize="20sp"
@@ -28,6 +31,9 @@
             android:fontFamily="@font/baloo_bhai"
             android:text="Dosage"
             android:textSize="20sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:singleLine="true"
             app:layout_constraintStart_toEndOf="@+id/DisplayVacName"
             app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
