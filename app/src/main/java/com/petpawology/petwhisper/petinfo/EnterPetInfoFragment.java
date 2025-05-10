@@ -46,6 +46,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.petpawology.petwhisper.Account;
 import com.petpawology.petwhisper.AccountController;
 import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.PetAdapter;
@@ -138,13 +139,23 @@ public class EnterPetInfoFragment extends Fragment {
     private Uri selectedPetImageUri;
 
 
+    Pet pet;
+
+
+    EditText petName;
+    TextView dateOfBirth;
+    EditText species;
+    EditText breed;
+    Spinner gender;
+
+
+
+
+    public EnterPetInfoFragment(){
+
+    }
     public void setPetAdapter(PetAdapter adapter) {
         this.petAdapter = adapter;
-    }
-
-    public Pet pet;
-    public EnterPetInfoFragment(Pet pet){
-        this.pet = pet;
     }
 
     @Override
@@ -154,11 +165,29 @@ public class EnterPetInfoFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        if (getArguments() != null) {
+            pet = (Pet) getArguments().getSerializable("pet");
+            Log.d("DebugCheck", "Received pet name: " + pet.getName());
+        } else {
+            Log.e("DebugCheck", "No pet passed in arguments!");
+        }
 
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        petName = view.findViewById(R.id.editPetName);
+        dateOfBirth  = view.findViewById(R.id.SelectBdayButton);
+        species  = view.findViewById(R.id.pet_species_type);
+        breed  = view.findViewById(R.id.BreedDropdown);
+        gender  = view.findViewById(R.id.gender_spinner);
+
+
+        String[] options = {"Male", "Female", "Unsure"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, options);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gender.setAdapter(adapter);
 
         BreedDropdown = view.findViewById(R.id.BreedDropdown);
         edit_species_maybe = view.findViewById(R.id.pet_species_type);
@@ -171,10 +200,23 @@ public class EnterPetInfoFragment extends Fragment {
         listViewVaccine = view.findViewById(R.id.vaccineList);
         listViewAllergy = view.findViewById(R.id.allergyList);
 
+// Medications
+        tempMedList = new ArrayList<>();
+        adapterMeds = new MedicationAdapter(requireContext(), tempMedList);
+        listViewMeds.setAdapter(adapterMeds);
 
+// Vaccines
+        tempVaccineList = new ArrayList<>();
+        adapterVaccine = new VaccineAdapter(requireContext(), tempVaccineList);
+        listViewVaccine.setAdapter(adapterVaccine);
+
+// Allergies
+        tempAllergyList = new ArrayList<>();
+        AllergyAdapter adapterAllergy = new AllergyAdapter(requireContext(), tempAllergyList);
+        listViewAllergy.setAdapter(adapterAllergy);
 
         //Check if Bundle was properly passed
-        if (getArguments() != null) {
+        if (pet != null) {
             selectedSpecies = getArguments().getString("selected_species", "None Selected");
             Log.d("DebugCheck", "EnterPetInfoFragment received species: " + selectedSpecies);
         } else {
@@ -184,26 +226,56 @@ public class EnterPetInfoFragment extends Fragment {
 
         updateBreedDropdown(selectedSpecies, BreedDropdown);
 
-        String[] options = {"Male", "Female", "Unsure"};
-        Spinner spinner = view.findViewById(R.id.gender_spinner);
-        spinner.setDropDownVerticalOffset(20);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, options);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        PetInfo info = pet.getPetInfo();
+        if(info != null){
+            // Populate basic fields
+            String spicies = info.getSpeciesName();
+            String breed = info.getPetBreed();
+            //updateBreedDropdown(spicies,BreedDropdown);
+            if (info.getPetName() != null) {
+                ((EditText) view.findViewById(R.id.editPetName)).setText(info.getPetName()); // Change ID to match your layout
+            }
 
-        tempMedList = new ArrayList<>();
-        tempMedList.add(new PetInfo.Medication("Test", 2, "Test", "Test", "Test"));
-        adapterMeds = new MedicationAdapter(requireContext(), tempMedList);
-        listViewMeds.setAdapter(adapterMeds);
-        if (listViewMeds == null) {
-            Log.e("DEBUG", "listViewMeds is NULL");
+            if (info.getPetBreed() != null) {
+                BreedDropdown.setText(info.getPetBreed(), false);
+            }
+
+            if (info.getPetGender() != null) {
+                Spinner spinner = view.findViewById(R.id.gender_spinner);
+                String[] optionss = {"Male", "Female", "Unsure"};
+                for (int i = 0; i < optionss.length; i++) {
+                    if (optionss[i].equalsIgnoreCase(info.getPetGender())) {
+                        spinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
+
+            // Populate Medications
+            if (info.getPet_Medications() != null) {
+                tempMedList.clear();
+                tempMedList.addAll(info.getPet_Medications());
+                adapterMeds.notifyDataSetChanged();
+            }
+
+            // Populate Vaccines
+            if (info.getPet_VaccinesRecords() != null) {
+                tempVaccineList.clear();
+                tempVaccineList.addAll(info.getPet_VaccinesRecords());
+                adapterVaccine.notifyDataSetChanged();
+            }
+
+            // Populate Allergies
+            if (info.getPet_AllergiesRecords() != null) {
+                tempAllergyList.clear();
+                tempAllergyList.addAll(info.getPet_AllergiesRecords());
+                if (listViewAllergy.getAdapter() != null) {
+                    ((AllergyAdapter) listViewAllergy.getAdapter()).notifyDataSetChanged();
+                }
+            }
         }
 
-        //Vaccine List temp
-        tempVaccineList = new ArrayList<>();
-        tempVaccineList.add(new PetInfo.Vaccine("FVRCP", "06/31/2025", "05/31/2025", "Test"));
-        adapterVaccine = new VaccineAdapter(requireContext(), tempVaccineList);
-        listViewVaccine.setAdapter(adapterVaccine);
+
 
 
 
@@ -560,13 +632,13 @@ public class EnterPetInfoFragment extends Fragment {
 
 
         SavePetInfo.setOnClickListener(view1 -> {
-            String name = "Bennett"; // Replace with actual input field
+            String name = String.valueOf(petName.getText()); // Replace with actual input field
             String breed = BreedDropdown.getText().toString().trim();
-            String gender = "Male"; // Replace with actual spinner selection
-            int age = 2; // Replace with real value
+            String gender = this.gender.getSelectedItem().toString(); // Replace with actual spinner selection
+            String age = dateOfBirth.getText().toString(); // Replace with real value
             boolean isVisitor = false;
 
-            PetInfo info = new PetInfo(name, breed, gender, age, 0, isVisitor);
+            PetInfo info = new PetInfo(name, breed, gender, 1, 0, isVisitor);
             info.setPet_Medications(tempMedList);
             info.setPet_VaccinesRecords(tempVaccineList);
             info.setPet_AllergiesRecords(tempAllergyList);
@@ -589,6 +661,7 @@ public class EnterPetInfoFragment extends Fragment {
             AccountController.getInstance().getAccount().uploadPet(pet, imageUriToUse, () -> {
                 Toast.makeText(requireContext(), "Pet saved successfully!", Toast.LENGTH_SHORT).show();
                 requireActivity().onBackPressed(); // Or navigate somewhere else
+
             });
         });
 
@@ -774,6 +847,31 @@ public class EnterPetInfoFragment extends Fragment {
             return convertView;
         }
     }
+    public static class AllergyAdapter extends ArrayAdapter<PetInfo.Allergy> {
+        private final Context context;
+        private final List<PetInfo.Allergy> allergyList;
+
+        public AllergyAdapter(Context context, List<PetInfo.Allergy> allergyList) {
+            super(context, R.layout.enter_pet_info_display_items_allergies, allergyList);
+            this.context = context;
+            this.allergyList = allergyList;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.enter_pet_info_display_items_allergies, parent, false);
+            }
+
+            TextView allergyName = convertView.findViewById(R.id.DisplayAllergy);
+
+
+            PetInfo.Allergy allergy = allergyList.get(position);
+            allergyName.setText(allergy.getName());
+            return convertView;
+        }
+    }
     public static Uri createUploadableUriFromDrawable(Context context, int drawableId, String filename) {
         try {
             File file = new File(context.getCacheDir(), filename);
@@ -800,12 +898,7 @@ public class EnterPetInfoFragment extends Fragment {
         }
 
     }
-    private byte[] getImageBytes(Context context, int drawableResId) {
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), drawableResId);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        return baos.toByteArray();
-    }
+
 
 
 }

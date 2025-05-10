@@ -16,6 +16,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,10 +24,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
+import com.petpawology.petwhisper.AccountController;
 import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.PetInfo;
 import com.petpawology.petwhisper.R;
 import com.petpawology.petwhisper.petinfo.FragmentEnterPetInfoContainer;
+import com.petpawology.petwhisper.petinfo.SharedViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,17 +40,24 @@ public class HomeListFragment extends Fragment {
     private HomeListAdapter adapter;
     private List<PetInfo> petList;
 
+    SharedViewModel viewModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.homelist_fragment, container, false);
         recyclerViewHomeList = view.findViewById(R.id.pet_listRecyclerView);
         recyclerViewHomeList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-
+        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         petList = new ArrayList<>(); // Initialize list
+
+        List<Pet> yourPets = AccountController.getInstance().getAccount().getPets();
+        for(Pet p :yourPets){
+            petList.add(p.petInfo);
+        }
         // Sample data
-        petList.add(new PetInfo("Bennett", "American ShortHair", "Male", 4, R.drawable.cat_ic, false));
-        petList.add(new PetInfo("Buddy", "Golden Retriever", "Male", 4, R.drawable.dog_ic, true));
+//        petList.add(new PetInfo("Bennett", "American ShortHair", "Male", 4, R.drawable.cat_ic, false));
+//        petList.add(new PetInfo("Buddy", "Golden Retriever", "Male", 4, R.drawable.dog_ic, true));
 
         adapter = new HomeListAdapter(requireContext(), petList, getParentFragmentManager());
         recyclerViewHomeList.setAdapter(adapter);
@@ -166,7 +176,10 @@ public class HomeListFragment extends Fragment {
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
                 Pet pet1 = new Pet(pet.getPetName());
-                FragmentEnterPetInfoContainer fragmentContainer = new FragmentEnterPetInfoContainer(pet1);
+                pet1.petInfo = pet;
+
+                bundle.putSerializable("pet",pet1);
+                FragmentEnterPetInfoContainer fragmentContainer = new FragmentEnterPetInfoContainer(bundle);
                 fragmentContainer.setArguments(bundle);
 
 

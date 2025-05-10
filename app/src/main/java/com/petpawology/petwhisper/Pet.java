@@ -6,8 +6,9 @@ public class Pet implements Serializable {
     private String name;
     public String petId;
     public PetInfo petInfo;
+    public String imageUrl;
 
-    public Pet(String id) {
+    public Pet(String name) {
         this.name = name;
         this.petId = name;
     }
@@ -35,7 +36,4 @@ public class Pet implements Serializable {
     public String getName() {
         return name;
     }
-
-
-
 }

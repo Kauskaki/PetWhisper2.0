@@ -1,14 +1,13 @@
 package com.petpawology.petwhisper;
 
+import android.util.Log;
+
 public class AccountController {
     private static AccountController instance;
     private Account account;
-
     private boolean petsLoaded = false;
     private boolean friendsLoaded = false;
-
     private Runnable onReadyCallback;
-
     private AccountController() {}
 
     public static synchronized AccountController getInstance() {
@@ -30,6 +29,8 @@ public class AccountController {
     private void loadAccountData() {
         account.loadPets(() -> {
             petsLoaded = true;
+            System.out.println(account.getPets().size());
+            ImagesLoader.getInstance().cachePetImages(account.getPets());
             checkIfReady();
         });
 

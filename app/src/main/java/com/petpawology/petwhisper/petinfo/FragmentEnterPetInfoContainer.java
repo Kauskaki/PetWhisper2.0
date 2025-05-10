@@ -25,10 +25,11 @@ public class FragmentEnterPetInfoContainer extends Fragment {
     ViewPager2 viewPager2;
     ViewPagerAdapter viewPagerAdapter;
 
-    Pet pet;
+    Bundle bundle;
 
-    public FragmentEnterPetInfoContainer(Pet pet){
-        this.pet = pet;
+    public FragmentEnterPetInfoContainer(Bundle bundle){
+        this.bundle = bundle;
+
     }
 
     @Override
@@ -57,7 +58,7 @@ public class FragmentEnterPetInfoContainer extends Fragment {
         ViewPager2 viewPager2 = view.findViewById(R.id.viewPager2_enterpetinfo);
 
         // Set up adapter with the bundle
-        ViewPagerAdapter adapter = new ViewPagerAdapter(requireActivity(), bundle,pet);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(requireActivity(), bundle);
         viewPager2.setAdapter(adapter);
 
         // Attach TabLayoutMediator

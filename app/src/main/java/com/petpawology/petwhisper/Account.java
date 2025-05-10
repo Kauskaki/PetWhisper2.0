@@ -48,11 +48,15 @@ public class Account {
                     petData.put("imageUrl", uri.toString());
                     db.collection("users").document(userId).collection("pets").document(petId)
                             .set(petData).addOnSuccessListener(unused -> {
-                                pets.add(pet);
+
                                 onSuccess.run();
+                                loadPets(()->{
+
+                                });
                             });
                 })
         );
+
     }
     // Load user's pets
     public void loadPets(Runnable onLoaded) {
@@ -63,6 +67,9 @@ public class Account {
                     for (QueryDocumentSnapshot doc : snapshot) {
                         PetInfo info = PetInfoMapper.fromMap(doc.getData());
                         Pet pet = new Pet(info.getPetName());
+                        pet.imageUrl =(String) doc.getData().get("imageUrl");
+                        //System.out.println(pet.imageUrl);
+
                         pet.setPetInfo(info);
                         pets.add(pet);
                     }
@@ -119,6 +126,27 @@ public class Account {
                     onLoaded.run();
                 });
     }
+    public void deletePet(String petName, Runnable onSuccess, Runnable onFailure) {
+        // Reference to Firestore document
+        db.collection("users").document(userId).collection("pets").document(petName)
+                .delete()
+                .addOnSuccessListener(unused -> {
+                    // After deleting document, also remove image from Storage
+                    StorageReference imgRef = storageRef.child("pet_images/" + petName + ".jpg");
+                    imgRef.delete().addOnSuccessListener(unused2 -> {
+                        Log.d("Account", "Pet and image deleted successfully: " + petName);
+                        loadPets(onSuccess); // Refresh local pet list
+                    }).addOnFailureListener(e -> {
+                        Log.e("Account", "Failed to delete pet image", e);
+                        onSuccess.run(); // Still consider success if Firestore deletion worked
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Account", "Failed to delete pet from Firestore", e);
+                    onFailure.run();
+                });
+    }
+
 
     public List<Friend> getFriends() {
         return friends;

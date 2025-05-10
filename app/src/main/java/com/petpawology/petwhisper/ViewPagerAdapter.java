@@ -12,38 +12,33 @@ import com.petpawology.petwhisper.petinfo.FragmentSelectPetNotifications;
 
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
-    private Bundle fragmentArgs;
-    private Pet pet;
+    private final Bundle bundle;
 
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, Bundle fragmentArgs,Pet pet) {
+
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, Bundle bundle) {
         super(fragmentActivity);
-        this.fragmentArgs = fragmentArgs;
-        this.pet = pet;
+        this.bundle = bundle;
+
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         Fragment fragment;
-        switch (position) {
-            case 0:
-                fragment = new EnterPetInfoFragment(pet);
-                break;
-            case 1:
-                fragment = new FragmentSelectPetNotifications(pet);
-                break;
-            default:
-                fragment = new EnterPetInfoFragment(pet);
-                break;
+        if (position == 0) {
+            EnterPetInfoFragment infoFragment = new EnterPetInfoFragment();
+            infoFragment.setArguments(this.bundle);
+            fragment = infoFragment;
+        } else {
+            FragmentSelectPetNotifications notifFragment = new FragmentSelectPetNotifications();
+            notifFragment.setArguments(this.bundle);
+            fragment = notifFragment;
         }
-
-        // Pass the bundle to the fragment
-        fragment.setArguments(fragmentArgs);
         return fragment;
     }
 
     @Override
     public int getItemCount() {
-        return 2; // Number of tabs
+        return 2;
     }
 }

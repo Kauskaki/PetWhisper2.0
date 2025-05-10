@@ -45,16 +45,16 @@ public class FragmentSelectPetNotifications extends Fragment {
 
 
 
-    public Pet pet;
+    Pet pet;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.enter_pet_info_select_notifs_fragment, container, false);
     }
 
-    public FragmentSelectPetNotifications(Pet pet) {
+    public FragmentSelectPetNotifications() {
         //empty Constructor
-        this.pet = pet;
+
     }
 
     @Override
@@ -64,7 +64,7 @@ public class FragmentSelectPetNotifications extends Fragment {
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
+        this.pet = (Pet) getArguments().getSerializable("pet");
         expandableListView = view.findViewById(R.id.content_Notif_sections);
 
         linearLayoutPickNotifType = view.findViewById(R.id.linearLayout_SelectNotifs);
