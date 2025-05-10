@@ -1,5 +1,8 @@
 package com.petpawology.petwhisper;
 
+import com.petpawology.petwhisper.R;
+import com.petpawology.petwhisper.friends.Friend;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

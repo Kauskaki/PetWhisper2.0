@@ -15,6 +15,7 @@ import com.petpawology.petwhisper.friends.Friend;
 import com.petpawology.petwhisper.friends.FriendAdapter;
 import com.petpawology.petwhisper.friends.FriendAddDialogFragment;
 import com.petpawology.petwhisper.friends.FriendPetsFragment;
+import com.petpawology.petwhisper.friends.Pet;
 
 import java.util.ArrayList;
 import java.util.Arrays;

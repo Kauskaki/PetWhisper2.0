@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //Debug statements
                 Log.d("NavigationDebug", "Expected nav_home ID: " + R.id.nav_home);
-                Log.d("NavigationDebug", "Expected nav_search ID: " + R.id.nav_search);
+                //Log.d("NavigationDebug", "Expected nav_search ID: " + R.id.nav_search);
                 Log.d("NavigationDebug", "Expected nav_Friends ID: " + R.id.nav_Friends);
 
                 //Check which navbarr buttons are clicked
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new HomeListFragment());
                     return true;
 
-                } else if (item.getItemId() == R.id.nav_search) {
+                /*} else if (item.getItemId() == R.id.nav_search) {
                     Log.d("NavigationDebug", "Search button clicked");
 
                     // Update Toolbar title
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                     backbutton.setVisibility(GONE);
                     settingsIcon.setVisibility(VISIBLE);
                     replaceFragment(new SearchFragment());
-                    return true;
+                    return true; */
 
                 } else if (item.getItemId() == R.id.nav_Friends) {
                     Log.d("NavigationDebug", "Friends button clicked");

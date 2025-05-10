@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
+import com.petpawology.petwhisper.friends.Pet;
+
 import java.util.ArrayList;
 import java.util.List;
 

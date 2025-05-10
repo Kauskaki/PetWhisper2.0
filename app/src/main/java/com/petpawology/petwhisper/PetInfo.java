@@ -1,10 +1,12 @@
 package com.petpawology.petwhisper;
 
+import android.os.Bundle;
+import android.os.Parcelable;
+
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,17 +20,18 @@ public class PetInfo {
     private String petGender;
     private int petAge;
     private String petId;
+    private String petBirthday;
 
     private ShapeableImageView pet_pfp;
 
-    private Map<String, Long> notifications = new HashMap<>(); // ✅ Stores notification type & time
+    private Map<String, Long> notifications = new HashMap<>();
     private String Notification_Title;
     private String Notification_Description;
     private ArrayList<String> pet_Allergies = new ArrayList<>();
 
-    private List<Medication>pet_Medications;
-    private List<Vaccine>pet_VaccinesRecords;
-    private List<Allergy>pet_AllergiesRecords;
+    private ArrayList<Medication> pet_MedicationsRecords;
+    private ArrayList<Vaccine>pet_VaccinesRecords;
+    private ArrayList<Allergy>pet_AllergiesRecords;
 
 
     //Pet Dialog selection screen only
@@ -44,18 +47,34 @@ public class PetInfo {
 
 
 
-    public PetInfo(String petName, String petBreed, String petGender, int petAge, int petImage, boolean visitor) {
+    public PetInfo(String petName, String petBreed, String petGender, int petAge, String birthday, int petImage, boolean visitor, ArrayList<Vaccine> vaccineList, ArrayList<Medication> medicationList, ArrayList<Allergy> allergyList) {
         if (petId == null || petId.isEmpty()) {
             petId = UUID.randomUUID().toString();
         }
-        this.imageResId = petImage;
+        this.petImage = petImage;
         this.petName = petName;
         this.petBreed = petBreed;
         this.petGender = petGender;
+        this.petBirthday = birthday;
+
         this.petAge = petAge;
-        this.pet_VaccinesRecords = new ArrayList<>();
-        this.pet_Medications = new ArrayList<>();
-        this.pet_AllergiesRecords = new ArrayList<>();
+        if (vaccineList != null) {
+
+            this.pet_VaccinesRecords = vaccineList;
+        } else {
+            this.pet_VaccinesRecords = new ArrayList<>();
+        }
+        if (allergyList != null) {
+            this.pet_AllergiesRecords = allergyList;
+        } else {
+            this.pet_AllergiesRecords = new ArrayList<>();
+        }
+
+        if (medicationList != null) {
+            this.pet_MedicationsRecords = medicationList;
+        } else{
+            this.pet_MedicationsRecords = new ArrayList<>();
+        }
         this.visitor = visitor;
     }
 
@@ -79,7 +98,7 @@ public class PetInfo {
     //Getters
     public int getPetImage() {
         return petImage;
-    }
+    } //This is to hold image of the Pet
 
     public String getPetBreed() {
         return petBreed;
@@ -99,20 +118,26 @@ public class PetInfo {
 
     public int getImageResId() {
         return imageResId;
-    }
+    } //This is used for Animal Dialog ONLY
 
     public String getSpeciesName() {
         return speciesName;
     }
-    public ArrayList<String> getPetAllergies() {
-        return pet_Allergies;
-    }
 
-    public String getNotificationTitle() {
-        return Notification_Title;
+    public String getPetBirthday() {
+        return petBirthday;
     }
-    public String getNotificationDescription() {
-        return Notification_Description;
+    public String getPetId() {
+        return petId;
+    }
+    public ArrayList<Allergy> getPetAllergies() {
+        return pet_AllergiesRecords;
+    }
+    public ArrayList<Medication> getPetMedications() {
+        return pet_MedicationsRecords;
+    }
+    public ArrayList<Vaccine> getPetVaccines() {
+        return pet_VaccinesRecords;
     }
 
     //Setters
@@ -151,6 +176,9 @@ public class PetInfo {
 
 
 
+
+
+
     public static class Vaccine {
         String name;
         String Expirationdate;
@@ -161,7 +189,6 @@ public class PetInfo {
             this.name = name;
             this.Expirationdate = Exdate;
             this.EffectiveDate = EffectiveDate;
-
             this.notes = notes;
         }
         public String getVacName() {
@@ -275,6 +302,23 @@ public class PetInfo {
 
     }
 
+    public Bundle holdPetInfo() {
+        Bundle bundle = new Bundle();
+        bundle.putString("petName", petName);
+        bundle.putString("petBreed", petBreed);
+        bundle.putString("petGender", petGender);
+        bundle.putInt("petAge", petAge);
+        bundle.putString("birthday", petBirthday);
+        bundle.putInt("petImage", petImage);
+        bundle.putBoolean("visitor", visitor);
+        bundle.putString("petId", petId);
+
+        bundle.putSerializable("vaccineList", pet_VaccinesRecords);
+        bundle.putSerializable("medicationList", pet_MedicationsRecords);
+        bundle.putSerializable("allergyList", pet_AllergiesRecords);
+
+        return bundle;
+    }
 
 
 }

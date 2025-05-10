@@ -121,6 +121,16 @@ public class EnterPetInfoFragment extends Fragment {
 
     ListView listViewAllergy;
 
+    //Enter Pet info parameters:
+
+    EditText editPetName;
+    TextView selectPetBday;
+    EditText editPetSpecies;
+    EditText editPetBreed;
+    Spinner genderSpinner;
+
+
+
 
     public void setPetAdapter(PetAdapter adapter) {
         this.petAdapter = adapter;
@@ -140,8 +150,7 @@ public class EnterPetInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        BreedDropdown = view.findViewById(R.id.BreedDropdown);
-        edit_species_maybe = view.findViewById(R.id.pet_species_type);
+        //Adding Lists of Health Issues.
         AddPetMeds = view.findViewById(R.id.AddPetMeds);
         AddPetVaccines = view.findViewById(R.id.AddPetVaccine);
         AddPetAllergy = view.findViewById(R.id.AddPetAllergies);
@@ -149,6 +158,16 @@ public class EnterPetInfoFragment extends Fragment {
         listViewMeds = view.findViewById(R.id.medList);
         listViewVaccine = view.findViewById(R.id.vaccineList);
         listViewAllergy = view.findViewById(R.id.allergyList);
+
+        //Normal Pet Info
+        shapeablePet_pfp = view.findViewById(R.id.shapeableImageEnterPetInfo);
+        editPetName = view.findViewById(R.id.editPetName);
+        selectPetBday = view.findViewById(R.id.SelectBdayButton);
+        BreedDropdown = view.findViewById(R.id.BreedDropdown);
+        edit_species_maybe = view.findViewById(R.id.pet_species_type);
+        genderSpinner = view.findViewById(R.id.gender_spinner);
+
+
 
 
         //Check if Bundle was properly passed
@@ -160,14 +179,29 @@ public class EnterPetInfoFragment extends Fragment {
             selectedSpecies = "None Selected"; // Prevent null errors
         }
 
+        //Save Pet Info
+        SavePetInfo.setOnClickListener(v -> {
+            Log.d("SaveButtonDebug", "Save Pet Info Button Clicked");
+            String petName = editPetName.getText().toString();
+            String petBday = selectPetBday.getText().toString();
+            String petSpecies = edit_species_maybe.getText().toString();
+            String petBreed = BreedDropdown.getText().toString();
+            String petGender = genderSpinner.getSelectedItem().toString();
+
+
+
+
+
+        });
+
+
         updateBreedDropdown(selectedSpecies, BreedDropdown);
 
         String[] options = {"Male", "Female", "Unsure"};
-        Spinner spinner = view.findViewById(R.id.gender_spinner);
-        spinner.setDropDownVerticalOffset(20);
+        genderSpinner.setDropDownVerticalOffset(20);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, options);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        genderSpinner.setAdapter(adapter);
 
         //Fixed Med Adapter
         tempMedList = new ArrayList<>();
@@ -230,6 +264,10 @@ public class EnterPetInfoFragment extends Fragment {
         }
 
 
+
+
+
+
     }
 
 
@@ -263,7 +301,7 @@ public class EnterPetInfoFragment extends Fragment {
         updateBreedDropdown(selectedSpecies, BreedDropdown);
 
         //adjusting Pet pfp
-        shapeablePet_pfp = view.findViewById(R.id.shapeableImageView);
+        shapeablePet_pfp = view.findViewById(R.id.shapeableImageEnterPetInfo);
         shapeablePet_pfp.setStrokeColor(getResources().getColorStateList(R.color.black, requireContext().getTheme()));
 
         shapeablePet_pfp.setOnClickListener(v -> {
@@ -558,10 +596,9 @@ public class EnterPetInfoFragment extends Fragment {
                 dialogAllergy.dismiss();
 
             });
-
-
             dialogAllergy.show();
         });
+
 
 
         return view;
@@ -642,6 +679,7 @@ public class EnterPetInfoFragment extends Fragment {
     }
     //End Birthday Calendar
 
+    //Adjust Breed Autofill dynamically
     private void updateBreedDropdown(String species, AutoCompleteTextView breedDropdown) {
         if (species == null || species.isEmpty()) {
             Log.e("DebugCheck", "Species is NULL or empty!");
@@ -781,6 +819,7 @@ public class EnterPetInfoFragment extends Fragment {
             this.allergyList = allergyList;
         }
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             Dialog dialogAllergy = new Dialog(requireContext(), R.style.DialogStyle);
@@ -865,6 +904,7 @@ public class EnterPetInfoFragment extends Fragment {
             this.medicationList = medicationList;
         }
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             Dialog dialogMeds = new Dialog(requireContext(), R.style.DialogStyle);
@@ -1006,6 +1046,7 @@ public class EnterPetInfoFragment extends Fragment {
                 this.vaccineList = vaccineList;
             }
 
+            @NonNull
             @Override
             public Dialog onCreateDialog(Bundle savedInstanceState) {
                 Dialog dialogVac = new Dialog(requireContext(), R.style.DialogStyle);
