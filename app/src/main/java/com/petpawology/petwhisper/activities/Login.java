@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.petpawology.petwhisper.AccountController;
 import com.petpawology.petwhisper.R;
 
 public class Login extends AppCompatActivity {
@@ -45,11 +46,15 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+
         if(currentUser != null){
-            Toast.makeText(Login.this, "Welcome back!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
+
+            AccountController.getInstance().init(currentUser.getUid(), () -> {
+                // Called once pets + friends data is fully loaded (even if empty)
+                Toast.makeText(Login.this, "Data loaded!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Login.this, MainActivity.class));
+                finish();
+            });
         }
     }
 
@@ -95,9 +100,7 @@ public class Login extends AppCompatActivity {
                 String email, name, username, password;
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+
                 //Checking if the fields are empty
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(Login.this, "Please enter your email", Toast.LENGTH_SHORT).show();
@@ -117,8 +120,12 @@ public class Login extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Toast.makeText(Login.this, "Authentication success.", Toast.LENGTH_SHORT).show();
-
+                                    AccountController.getInstance().init(user.getUid(), () -> {
+                                        // Called once pets + friends data is fully loaded (even if empty)
+                                        Toast.makeText(Login.this, "Data loaded!", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(Login.this, MainActivity.class));
+                                        finish();
+                                    });
 
                                 } else {
                                     // If sign in fails, display a message to the user.

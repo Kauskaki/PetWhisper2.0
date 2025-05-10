@@ -21,8 +21,13 @@ legacySupportV4 = "1.0.0"
 recyclerview = "1.4.0"
 preference = "1.2.1"
 firebaseAuth = "23.2.0"
+firebase-storage = "20.3.0"
 
 [libraries]
+
+firebase-storage = { module = "com.google.firebase:firebase-storage", version.ref = "firebase-storage" }
+firebase-storage-ktx = { module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebase-storage" }
+
 android-image-cropper = { module = "com.github.CanHub:Android-Image-Cropper", version.ref = "androidImageCropper" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }

@@ -26,16 +26,20 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
+import com.petpawology.petwhisper.AccountController;
+import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.PetInfo;
 import com.petpawology.petwhisper.R;
 import com.petpawology.petwhisper.petinfo.FragmentEnterPetInfoContainer;
-import com.petpawology.petwhisper.userData;
+import com.petpawology.petwhisper.petinfo.SharedViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,9 +51,9 @@ import java.util.Objects;
 public class HomeListFragment extends Fragment {
     private RecyclerView recyclerViewHomeList;
     private HomeListAdapter adapter;
-    private ArrayList<PetInfo> petList;
+    private List<PetInfo> petList;
 
-    private userData user;
+    SharedViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,11 +65,19 @@ public class HomeListFragment extends Fragment {
         recyclerViewHomeList = view.findViewById(R.id.pet_listRecyclerView);
         recyclerViewHomeList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         petList = new ArrayList<>(); // Initialize list
+
+        List<Pet> yourPets = AccountController.getInstance().getAccount().getPets();
+        for(Pet p :yourPets){
+            petList.add(p.petInfo);
+        }
         // Sample data
         petList.add(new PetInfo("Bennett", "American ShortHair", "Male", 4, "04/14/2021", R.drawable.bennett, false, null, null, null));
         petList.add(new PetInfo("Buddy", "Golden Retriever", "Female", 1, "05/13/2024", R.drawable.dog_ic, true, null, null, null));
         petList.add(new PetInfo("Coco", "British Shorthair", "Male", 3,"04/15/2022", R.drawable.coco, false, null, null, null));
+//        petList.add(new PetInfo("Bennett", "American ShortHair", "Male", 4, R.drawable.cat_ic, false));
+//        petList.add(new PetInfo("Buddy", "Golden Retriever", "Male", 4, R.drawable.dog_ic, true));
 
         adapter = new HomeListAdapter(requireContext(), petList, getParentFragmentManager());
         recyclerViewHomeList.setAdapter(adapter);
@@ -120,6 +132,8 @@ public class HomeListFragment extends Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerViewHomeList);
 
+        //Undo Deletion
+
 
 
 
@@ -165,35 +179,36 @@ public class HomeListFragment extends Fragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             PetInfo pet = petList.get(position);
             holder.petName.setText(pet.getPetName());
-            holder.pet_pfp.setImageResource(pet.getPetImage());
+            holder.pet_pfp.setImageResource(pet.getImageResId());
             holder.petAge.setText(String.valueOf(pet.getPetAge()));
 
             Boolean checkVisitor = pet.getVisitorStatus();
 
             if (checkVisitor) {
                 holder.visitorStatusTitle.setVisibility(View.VISIBLE);
-            } else {
+            } else{
                 holder.visitorStatusTitle.setVisibility(View.GONE);
             }
 
+
+
+            // Handle item click to transition to pet details fragment
             holder.itemView.setOnClickListener(v -> {
-
-                FragmentEnterPetInfoContainer fragmentContainer = new FragmentEnterPetInfoContainer();
                 Bundle bundle = new Bundle();
+                Pet pet1 = new Pet(pet.getPetName());
+                pet1.petInfo = pet;
 
-                fragmentContainer.setArguments(bundle); // Set arguments before transaction
+                bundle.putSerializable("pet",pet1);
+                FragmentEnterPetInfoContainer fragmentContainer = new FragmentEnterPetInfoContainer(bundle);
+                fragmentContainer.setArguments(bundle);
+
+
 
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.MainFrameContainer, fragmentContainer);
-                transaction.setReorderingAllowed(true);
                 transaction.addToBackStack(null);
                 transaction.commit();
-
-
-
             });
-
-
         }
 
         @Override

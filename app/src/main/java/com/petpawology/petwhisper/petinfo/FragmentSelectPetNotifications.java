@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.petpawology.petwhisper.NotifCardViewAdapter;
 import com.petpawology.petwhisper.NotifPreferenceAdapter;
+import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.R;
 
 import java.util.Arrays;
@@ -44,6 +45,7 @@ public class FragmentSelectPetNotifications extends Fragment {
 
 
 
+    Pet pet;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class FragmentSelectPetNotifications extends Fragment {
 
     public FragmentSelectPetNotifications() {
         //empty Constructor
+
     }
 
     @Override
@@ -61,7 +64,7 @@ public class FragmentSelectPetNotifications extends Fragment {
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
+        this.pet = (Pet) getArguments().getSerializable("pet");
         expandableListView = view.findViewById(R.id.content_Notif_sections);
 
         linearLayoutPickNotifType = view.findViewById(R.id.linearLayout_SelectNotifs);

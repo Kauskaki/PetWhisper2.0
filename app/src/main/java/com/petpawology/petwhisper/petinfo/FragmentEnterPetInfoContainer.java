@@ -7,8 +7,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.R;
 import com.petpawology.petwhisper.ViewPagerAdapter;
 
@@ -19,12 +21,24 @@ import android.view.ViewGroup;
 
 
 public class FragmentEnterPetInfoContainer extends Fragment {
-        TabLayout tabLayout;
-        ViewPager2 viewPager2;
-        ViewPagerAdapter viewPagerAdapter;
+    TabLayout tabLayout;
+    ViewPager2 viewPager2;
+    ViewPagerAdapter viewPagerAdapter;
+
+    Bundle bundle;
+
+    public FragmentEnterPetInfoContainer(Bundle bundle){
+        this.bundle = bundle;
+
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        FloatingActionButton addPet = getActivity().findViewById(R.id.floatPetAddButton);
+        addPet.setVisibility(View.GONE);
+
+
         return inflater.inflate(R.layout.enter_pet_info_container, container, false);
     }
 

@@ -22,8 +22,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.petpawology.petwhisper.AccountController;
 import com.petpawology.petwhisper.userData;
 import com.petpawology.petwhisper.R;
+
+import java.util.Map;
 
 public class RegisterAcc extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -67,45 +71,57 @@ public class RegisterAcc extends AppCompatActivity {
 
 
         //Registering User Once button is pressed
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                String email, password, name, username;
-                email = String.valueOf(editTextEmail);
-                password = String.valueOf(editTextPassword);
-                username = String.valueOf(editTextUsername);
+        buttonRegister.setOnClickListener(view -> {
+            String email = editTextEmail.getText().toString().trim();
+            String password = editTextPassword.getText().toString().trim();
+            String username = editTextUsername.getText().toString().trim();
 
-                //Checking if the fields are empty
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(RegisterAcc.this, "Please enter your email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(RegisterAcc.this, "Please enter your password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "signInWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Toast.makeText(RegisterAcc.this, "Authentication success.", Toast.LENGTH_SHORT).show();
-
-                                    //updateUI(user); <- For later [maybe]
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(RegisterAcc.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-
-                                    //updateUI(null); For later [maybe]
-                                }
-                            }
-                        });
-
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(RegisterAcc.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(RegisterAcc.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (TextUtils.isEmpty(username)) {
+                Toast.makeText(RegisterAcc.this, "Please enter your username", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mAuth = FirebaseAuth.getInstance();
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null) {
+                                String userId = user.getUid();
+
+                                // Initialize the singleton controller
+
+
+                                // Save user info to Firestore
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                db.collection("users").document(userId)
+                                        .set(Map.of(
+                                                "email", email,
+                                                "username", username,
+                                                "userId", userId
+                                        ))
+                                        .addOnSuccessListener(unused -> {
+                                            AccountController.getInstance().init(userId, () -> {
+                                                // Called once pets + friends data is fully loaded (even if empty)
+                                                Toast.makeText(RegisterAcc.this, "Data loaded!", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(RegisterAcc.this, MainActivity.class));
+                                                finish();
+                                            });
+                                        });
+                            }
+                        } else {
+                            Toast.makeText(RegisterAcc.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
+
     }
 }
