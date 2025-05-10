@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.petpawology.petwhisper.NotifCardViewAdapter;
 import com.petpawology.petwhisper.NotifPreferenceAdapter;
+import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.R;
 
 import java.util.Arrays;
@@ -44,14 +45,16 @@ public class FragmentSelectPetNotifications extends Fragment {
 
 
 
+    public Pet pet;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.enter_pet_info_select_notifs_fragment, container, false);
     }
 
-    public FragmentSelectPetNotifications() {
+    public FragmentSelectPetNotifications(Pet pet) {
         //empty Constructor
+        this.pet = pet;
     }
 
     @Override

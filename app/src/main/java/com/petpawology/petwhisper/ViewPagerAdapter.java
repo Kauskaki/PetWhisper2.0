@@ -13,10 +13,12 @@ import com.petpawology.petwhisper.petinfo.FragmentSelectPetNotifications;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     private Bundle fragmentArgs;
+    private Pet pet;
 
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, Bundle fragmentArgs) {
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, Bundle fragmentArgs,Pet pet) {
         super(fragmentActivity);
         this.fragmentArgs = fragmentArgs;
+        this.pet = pet;
     }
 
     @NonNull
@@ -25,13 +27,13 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = new EnterPetInfoFragment();
+                fragment = new EnterPetInfoFragment(pet);
                 break;
             case 1:
-                fragment = new FragmentSelectPetNotifications();
+                fragment = new FragmentSelectPetNotifications(pet);
                 break;
             default:
-                fragment = new EnterPetInfoFragment();
+                fragment = new EnterPetInfoFragment(pet);
                 break;
         }
 

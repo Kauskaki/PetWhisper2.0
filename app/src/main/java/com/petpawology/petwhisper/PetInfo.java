@@ -27,6 +27,9 @@ public class PetInfo {
     private ArrayList<String> pet_Allergies = new ArrayList<>();
 
     private List<Medication>pet_Medications;
+
+
+
     private List<Vaccine>pet_VaccinesRecords;
     private List<Allergy>pet_AllergiesRecords;
 
@@ -149,7 +152,37 @@ public class PetInfo {
         pet_VaccinesRecords.add(new Vaccine(name, Exdate, effdate, notes));
     }
 
+    public ArrayList<String> getPet_Allergies() {
+        return pet_Allergies;
+    }
 
+    public void setPet_Allergies(ArrayList<String> pet_Allergies) {
+        this.pet_Allergies = pet_Allergies;
+    }
+
+    public List<Medication> getPet_Medications() {
+        return pet_Medications;
+    }
+
+    public void setPet_Medications(List<Medication> pet_Medications) {
+        this.pet_Medications = pet_Medications;
+    }
+
+    public List<Vaccine> getPet_VaccinesRecords() {
+        return pet_VaccinesRecords;
+    }
+
+    public void setPet_VaccinesRecords(List<Vaccine> pet_VaccinesRecords) {
+        this.pet_VaccinesRecords = pet_VaccinesRecords;
+    }
+
+    public List<Allergy> getPet_AllergiesRecords() {
+        return pet_AllergiesRecords;
+    }
+
+    public void setPet_AllergiesRecords(List<Allergy> pet_AllergiesRecords) {
+        this.pet_AllergiesRecords = pet_AllergiesRecords;
+    }
 
     public static class Vaccine {
         String name;

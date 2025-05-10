@@ -60,4 +60,11 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.android.image.cropper)
     implementation(libs.gson)
+
+    implementation(platform(libs.firebase.bom))
+
+    implementation(libs.firebase.storage)
+    implementation(libs.firebase.storage.ktx)
+
+
 }

@@ -69,7 +69,8 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.ViewHolder> {
 
             Log.d("DebugCheck", "Replacing fragment with selected species: " + bundle.getString("selected_species"));
 
-            FragmentEnterPetInfoContainer fragmentContainer = new FragmentEnterPetInfoContainer();
+            Pet pett = new Pet(pet.getPetName());
+            FragmentEnterPetInfoContainer fragmentContainer = new FragmentEnterPetInfoContainer(pett);
             fragmentContainer.setArguments(bundle);
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();

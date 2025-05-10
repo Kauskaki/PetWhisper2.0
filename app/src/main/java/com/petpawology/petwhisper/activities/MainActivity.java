@@ -65,14 +65,7 @@ public class MainActivity extends AppCompatActivity {
     Button logout;
     BottomNavigationView bottom_navigation;
     private FloatingActionButton addPet;
-
     Toolbar toolbar;
-
-
-
-
-
-
 
     private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.MainFrameContainer, fragment).addToBackStack(null).commit();

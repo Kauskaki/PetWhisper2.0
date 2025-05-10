@@ -20,8 +20,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
+import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.PetInfo;
 import com.petpawology.petwhisper.R;
 import com.petpawology.petwhisper.petinfo.FragmentEnterPetInfoContainer;
@@ -40,6 +42,7 @@ public class HomeListFragment extends Fragment {
         View view = inflater.inflate(R.layout.homelist_fragment, container, false);
         recyclerViewHomeList = view.findViewById(R.id.pet_listRecyclerView);
         recyclerViewHomeList.setLayoutManager(new LinearLayoutManager(requireContext()));
+
 
         petList = new ArrayList<>(); // Initialize list
         // Sample data
@@ -162,9 +165,11 @@ public class HomeListFragment extends Fragment {
             // Handle item click to transition to pet details fragment
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-
-                FragmentEnterPetInfoContainer fragmentContainer = new FragmentEnterPetInfoContainer();
+                Pet pet1 = new Pet(pet.getPetName());
+                FragmentEnterPetInfoContainer fragmentContainer = new FragmentEnterPetInfoContainer(pet1);
                 fragmentContainer.setArguments(bundle);
+
+
 
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.MainFrameContainer, fragmentContainer);

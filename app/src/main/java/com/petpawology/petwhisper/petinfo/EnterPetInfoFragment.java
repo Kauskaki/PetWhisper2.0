@@ -3,6 +3,10 @@ import static java.util.TimeZone.getDefault;
 
 import android.content.Context;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Objects;
 
 import android.annotation.SuppressLint;
@@ -10,6 +14,8 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,17 +33,21 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.petpawology.petwhisper.AccountController;
+import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.PetAdapter;
 import com.petpawology.petwhisper.PetInfo;
 import com.petpawology.petwhisper.R;
@@ -125,10 +135,16 @@ public class EnterPetInfoFragment extends Fragment {
 
 
 
+    private Uri selectedPetImageUri;
 
 
     public void setPetAdapter(PetAdapter adapter) {
         this.petAdapter = adapter;
+    }
+
+    public Pet pet;
+    public EnterPetInfoFragment(Pet pet){
+        this.pet = pet;
     }
 
     @Override
@@ -528,22 +544,8 @@ public class EnterPetInfoFragment extends Fragment {
             EditText AllergyNotes = popupViewAllergy.findViewById(R.id.editAllergyNotes);
             ImageView trash_allergy = popupViewAllergy.findViewById(R.id.trash_allergy);
 
-            SavePetInfo.setOnClickListener(view1 -> {
-                Log.d("DebugCheck", "Save Pet Allergy Button Clicked");
-                String tempAllergyName = editAllergyName.getText().toString();
-                String tempAllergyNotes = AllergyNotes.getText().toString();
-
-                // Ensure no empty name
-                if (tempAllergyName.isEmpty()) {
-                    tempAllergyName = "Unnamed Allergy";
-                    PetInfo.Allergy newAllergy = new PetInfo.Allergy(tempAllergyName, tempAllergyNotes);
-                }
-
-                PetInfo.Allergy newAllergy = new PetInfo.Allergy(tempAllergyName, tempAllergyNotes);
-                tempAllergyList.add(newAllergy);
 
 
-            });
 
             buttonCancelAllergy.setOnClickListener(view1 ->{
                 Log.d("DebugCheck", "Cancel button clicked!");
@@ -556,6 +558,39 @@ public class EnterPetInfoFragment extends Fragment {
             dialogAllergy.show();
         });
 
+
+        SavePetInfo.setOnClickListener(view1 -> {
+            String name = "Bennett"; // Replace with actual input field
+            String breed = BreedDropdown.getText().toString().trim();
+            String gender = "Male"; // Replace with actual spinner selection
+            int age = 2; // Replace with real value
+            boolean isVisitor = false;
+
+            PetInfo info = new PetInfo(name, breed, gender, age, 0, isVisitor);
+            info.setPet_Medications(tempMedList);
+            info.setPet_VaccinesRecords(tempVaccineList);
+            info.setPet_AllergiesRecords(tempAllergyList);
+
+            Pet pet = new Pet(info.getPetName());
+            pet.setPetInfo(info);
+
+            Uri imageUriToUse = selectedPetImageUri;
+
+            if (imageUriToUse == null) {
+                imageUriToUse = createUploadableUriFromDrawable(requireContext(), R.drawable.cat_ic, "cat_ic.png");
+            }
+
+
+            if (!AccountController.getInstance().isInitialized()) {
+                Toast.makeText(requireContext(), "Account not ready", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            AccountController.getInstance().getAccount().uploadPet(pet, imageUriToUse, () -> {
+                Toast.makeText(requireContext(), "Pet saved successfully!", Toast.LENGTH_SHORT).show();
+                requireActivity().onBackPressed(); // Or navigate somewhere else
+            });
+        });
 
 
 
@@ -571,6 +606,7 @@ public class EnterPetInfoFragment extends Fragment {
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     Uri imageUri = result.getData().getData();
+                    selectedPetImageUri = result.getData().getData();
                     shapeablePet_pfp.setImageURI(imageUri); // Display selected image
                 }
             });
@@ -738,4 +774,38 @@ public class EnterPetInfoFragment extends Fragment {
             return convertView;
         }
     }
+    public static Uri createUploadableUriFromDrawable(Context context, int drawableId, String filename) {
+        try {
+            File file = new File(context.getCacheDir(), filename);
+            if (!file.exists()) {
+                InputStream inputStream = context.getResources().openRawResource(drawableId);
+                FileOutputStream outputStream = new FileOutputStream(file);
+                byte[] buffer = new byte[4096];
+                int length;
+                while ((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
+                outputStream.close();
+                inputStream.close();
+            }
+
+            return FileProvider.getUriForFile(
+                    context,
+                    context.getPackageName() + ".provider",
+                    file
+            );
+        } catch (Exception e) {
+            Log.e("UploadUtil", "Error creating file URI from drawable", e);
+            return null;
+        }
+
+    }
+    private byte[] getImageBytes(Context context, int drawableResId) {
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), drawableResId);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
+    }
+
+
 }

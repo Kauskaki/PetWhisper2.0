@@ -3,18 +3,21 @@ package com.petpawology.petwhisper;
 import java.util.List;
 
 public class Friend {
+    private String id;
     private String name;
     private List<Pet> pets;
-
-    public Friend(String name, List<Pet> pets) {
+    private String imageResId;
+    public Friend(String id,String name, List<Pet> pets) {
+        this.id = id;
         this.name = name;
         this.pets = pets;
     }
     public String getName() {
         return name;
     }
-    public Integer getImageResId(){
-        return 1515;
+    public String getImageResId(){
+        return
+        imageResId;
     }
     public List<Pet> getPets() {
         return pets;
