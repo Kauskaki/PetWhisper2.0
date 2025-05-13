@@ -3,7 +3,6 @@ import static java.util.TimeZone.getDefault;
 
 import android.content.Context;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -14,8 +13,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -46,7 +43,6 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.petpawology.petwhisper.Account;
 import com.petpawology.petwhisper.AccountController;
 import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.PetAdapter;
@@ -315,7 +311,7 @@ public class EnterPetInfoFragment extends Fragment {
         updateBreedDropdown(selectedSpecies, BreedDropdown);
 
         //adjusting Pet pfp
-        shapeablePet_pfp = view.findViewById(R.id.shapeableImageView);
+        shapeablePet_pfp = view.findViewById(R.id.shapeableImageEnterPetInfo);
         shapeablePet_pfp.setStrokeColor(getResources().getColorStateList(R.color.black, requireContext().getTheme()));
 
         shapeablePet_pfp.setOnClickListener(v -> {

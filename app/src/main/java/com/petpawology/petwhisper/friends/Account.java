@@ -1,5 +1,5 @@
 package com.petpawology.petwhisper.friends;
-import com.petpawology.petwhisper.friends.Friend;
+import com.petpawology.petwhisper.Pet;
 
 import java.util.ArrayList;
 import java.util.Arrays;

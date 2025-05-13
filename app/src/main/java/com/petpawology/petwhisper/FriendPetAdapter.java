@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.petpawology.petwhisper.friends.Pet;
-
 import java.util.List;
 
 public class FriendPetAdapter extends RecyclerView.Adapter<FriendPetAdapter.PetViewHolder> {

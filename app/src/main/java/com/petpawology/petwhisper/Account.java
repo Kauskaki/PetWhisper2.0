@@ -1,8 +1,5 @@
 package com.petpawology.petwhisper;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 
@@ -10,8 +7,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+//import com.google.firebase.storage.FirebaseStorage;
+//import com.google.firebase.storage.StorageReference;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +17,7 @@ import java.util.Map;
 public class Account {
 
     private List<Friend> friends = new ArrayList<>();
-    private List<Pet> pets = new ArrayList<>(); // My PETS
+    private ArrayList<Pet> pets = new ArrayList<>(); // My PETS
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     private final String userId;

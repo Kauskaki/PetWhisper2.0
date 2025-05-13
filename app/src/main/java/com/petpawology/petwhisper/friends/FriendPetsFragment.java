@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.petpawology.petwhisper.FriendPetInfoFragment;
+import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.R;
 
 import java.util.ArrayList;

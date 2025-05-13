@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.R;
 
 import java.util.List;

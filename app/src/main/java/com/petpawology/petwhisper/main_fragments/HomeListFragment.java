@@ -1,24 +1,18 @@
 package com.petpawology.petwhisper.main_fragments;
 
-import static android.content.Context.MODE_PRIVATE;
-
+import com.petpawology.petwhisper.Pet;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -31,21 +25,16 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.petpawology.petwhisper.AccountController;
-import com.petpawology.petwhisper.Pet;
 import com.petpawology.petwhisper.PetInfo;
 import com.petpawology.petwhisper.R;
 import com.petpawology.petwhisper.petinfo.FragmentEnterPetInfoContainer;
 import com.petpawology.petwhisper.petinfo.SharedViewModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class HomeListFragment extends Fragment {
@@ -73,9 +62,9 @@ public class HomeListFragment extends Fragment {
             petList.add(p.petInfo);
         }
         // Sample data
-        petList.add(new PetInfo("Bennett", "American ShortHair", "Male", 4, "04/14/2021", R.drawable.bennett, false, null, null, null));
-        petList.add(new PetInfo("Buddy", "Golden Retriever", "Female", 1, "05/13/2024", R.drawable.dog_ic, true, null, null, null));
-        petList.add(new PetInfo("Coco", "British Shorthair", "Male", 3,"04/15/2022", R.drawable.coco, false, null, null, null));
+        //petList.add(new PetInfo("Bennett", "American ShortHair", "Male", 4, "04/14/2021", R.drawable.bennett, false, null, null, null));
+        //petList.add(new PetInfo("Buddy", "Golden Retriever", "Female", 1, "05/13/2024", R.drawable.dog_ic, true, null, null, null));
+        //petList.add(new PetInfo("Coco", "British Shorthair", "Male", 3,"04/15/2022", R.drawable.coco, false, null, null, null));
 //        petList.add(new PetInfo("Bennett", "American ShortHair", "Male", 4, R.drawable.cat_ic, false));
 //        petList.add(new PetInfo("Buddy", "Golden Retriever", "Male", 4, R.drawable.dog_ic, true));
 

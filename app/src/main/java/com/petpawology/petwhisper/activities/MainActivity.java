@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     Button logout;
     BottomNavigationView bottom_navigation;
     private FloatingActionButton addPet;
+    Button LogOut;
     Toolbar toolbar;
 
     private void replaceFragment(Fragment fragment) {
@@ -98,6 +99,20 @@ public class MainActivity extends AppCompatActivity {
         backbutton = findViewById(R.id.backButton);
         settingsIcon = findViewById(R.id.SettingsIcon);
         addPet = findViewById(R.id.floatPetAddButton);
+        LogOut = findViewById(R.id.logoutButton);
+
+        LogOut.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
 
 

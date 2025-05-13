@@ -1,4 +1,4 @@
-package com.petpawology.petwhisper.friends;
+package com.petpawology.petwhisper;
 
 import java.io.Serializable;
 

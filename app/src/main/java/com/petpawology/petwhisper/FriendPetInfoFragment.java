@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.petpawology.petwhisper.friends.Pet;
-
 public class FriendPetInfoFragment extends Fragment {
     private static final String ARG_PET = "pet";
     private Pet pet;
